@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search and filter CoFundly's verified Richmond, Virginia community resource directory — food, housing, health, jobs, legal aid, and more.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Resource Directory — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* ---- Directory hero ---- */
+    .dir-hero {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, rgba(234,88,12,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 50%, rgba(30,58,95,0.25) 0%, transparent 65%),
+        linear-gradient(180deg, #050508 0%, #0a0812 60%, #050508 100%);
+      overflow: hidden;
+    }
+    .dir-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .dir-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+      pointer-events: none;
+    }
+    .dir-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .dir-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(234,88,12,0.85);
+      margin-bottom: 0.75rem;
+    }
+    .dir-hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #ea580c;
+    }
+    .dir-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .dir-hero-title span {
+      background: linear-gradient(90deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .dir-hero-sub {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+    }
+    @media (max-width: 768px) { .dir-hero { height: 220px; } }
+    .directory-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: start; }
+    .filter-sidebar { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 1.5rem; position: sticky; top: calc(var(--nav-height) + 1rem); }
+    .filter-sidebar h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-light); margin-bottom: .75rem; }
+    .filter-divider { height: 1px; background: var(--border-light); margin: 1.25rem 0; }
+    .filter-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 12px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 500; background: none; border: none; color: var(--text-muted); cursor: pointer; text-align: left; transition: all var(--transition); }
+    .filter-btn:hover { background: rgba(30,58,95,0.05); color: var(--text); }
+    .filter-btn.active { background: rgba(30,58,95,0.08); color: var(--navy); font-weight: 600; }
+    [data-theme="dark"] .filter-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    [data-theme="dark"] .filter-btn.active { background: rgba(255,255,255,0.1); color: var(--text); }
+    .filter-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dir-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: .75rem; }
+    .result-info { font-size: 0.9rem; color: var(--text-muted); }
+    .sort-select { padding: 8px 14px; border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.85rem; font-family: var(--font-body); cursor: pointer; }
+    .chips-bar { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .chips-bar::-webkit-scrollbar { display: none; }
+    .neighborhood-select { width: 100%; padding: 10px 12px; border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.88rem; font-family: var(--font-body); cursor: pointer; }
+    .neighborhood-select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(30,58,95,0.1); }
+    @media (max-width: 860px) {
+      .directory-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { position: static; }
+    }
+  </style>
+  <script>(function(){var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var isReload=nav?nav.type==="reload":(performance.navigation&&performance.navigation.type===1);if(isReload){sessionStorage.removeItem("cf_a11y_dismissed");sessionStorage.removeItem("cf_alert_dismissed");}if(sessionStorage.getItem("cf_a11y_dismissed"))document.documentElement.classList.add("a11y-hidden");if(sessionStorage.getItem("cf_alert_dismissed"))document.documentElement.classList.add("alert-hidden");})();</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Accessibility bar -->
+  <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
+    <span>Accessibility:</span>
+    <button data-a11y="increase" aria-label="Increase font size">A+</button>
+    <button data-a11y="decrease" aria-label="Decrease font size">A−</button>
+    <button data-a11y="reset" aria-label="Reset font size">Reset</button>
+    <button data-a11y="close" aria-label="Close accessibility bar" style="margin-left:auto">✕</button>
+  </div>
+
+  <!-- Emergency alert bar -->
+  <div class="help-bar" role="alert">
+    <div class="help-bar-content">
+      <strong>🚨 Need help right now?</strong>
+      <span>Crisis line: <a href="tel:988">988</a> · Homeward intake (24/7): <a href="tel:8049720813">(804) 972-0813</a> · YWCA DV hotline: <a href="tel:8046126126">(804) 612-6126</a></span>
+    </div>
+    <button class="help-bar-close" aria-label="Dismiss alert">✕</button>
+  </div>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg>
+        </div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="directory.html" class="active">Resources</a>
+        <a href="programs.html">Programs & Events</a>
+        <a href="get-help.html">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a>
+        <a href="donate.html" class="nav-donate">Donate</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="saved-nav-btn" id="saved-nav-btn" aria-label="View saved resources" aria-expanded="false">
+          <span class="saved-nav-icon">♥</span>
+          <span class="saved-nav-label">Saved</span>
+          <span class="fav-count" style="display:none"></span>
+        </button>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="donate.html" class="nav-donate">Donate</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ & Contact</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <header class="dir-hero">
+      <div class="dir-hero-content">
+        <div class="dir-hero-eyebrow">Richmond, VA · 180+ verified organizations</div>
+        <h1 class="dir-hero-title">Find the right <span>support</span><br>in Richmond</h1>
+        <p class="dir-hero-sub">Free resources for food, housing, health, jobs &amp; more</p>
+      </div>
+    </header>
+
+    <section class="section section--sm">
+      <div class="container">
+
+        <!-- Search bar -->
+        <div class="search-bar" style="margin-bottom:1.25rem;max-width:720px">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="search-input" placeholder="Search by name, service, keyword…" aria-label="Search resources" autocomplete="off">
+          <button class="search-clear" aria-label="Clear search">✕</button>
+        </div>
+
+        <!-- Category chip bar -->
+        <div class="chips-bar" id="category-chips" role="toolbar" aria-label="Filter by category" style="margin-bottom:1.5rem">
+          <!-- Injected by JS -->
+        </div>
+
+        <div class="directory-layout">
+
+          <!-- Sidebar filters -->
+          <aside class="filter-sidebar" aria-label="Filter resources">
+            <h3>Neighborhood</h3>
+            <select class="neighborhood-select" id="neighborhood-select" aria-label="Filter by Richmond neighborhood">
+              <option value="">All Richmond neighborhoods</option>
+              <!-- Injected by JS -->
+            </select>
+
+            <div class="filter-divider"></div>
+
+            <h3>Category</h3>
+            <div id="sidebar-cats">
+              <button class="filter-btn active" onclick="setCategory(null)" id="sidebar-all">
+                <span class="filter-dot" style="background:var(--text-muted)"></span>
+                All categories
+              </button>
+            </div>
+
+            <div class="filter-divider"></div>
+
+            <h3>Quick filters</h3>
+            <button class="filter-btn" onclick="filterUrgent()">⚡ Urgent / Immediate help</button>
+            <button class="filter-btn" onclick="filterFavorites()">♥ My saved resources</button>
+
+            <div class="filter-divider"></div>
+
+            <button class="btn btn--secondary btn--sm btn--full" onclick="clearFilters()">Clear all filters</button>
+          </aside>
+
+          <!-- Main directory -->
+          <div>
+            <div class="dir-toolbar">
+              <p class="result-info">Showing <strong id="result-count">0 resources</strong></p>
+              <select class="sort-select" id="sort-select" aria-label="Sort resources">
+                <option value="default">Sort: Default</option>
+                <option value="name">A–Z by name</option>
+                <option value="urgent">Urgent first</option>
+              </select>
+            </div>
+            <div class="grid grid-auto" id="directory-grid" role="list" aria-live="polite" aria-label="Resource results">
+              <div class="spinner" role="status" aria-label="Loading resources"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div>
+            <span class="nav-logo-text">Co<span>Fundly</span></span>
+          </a>
+          <p class="footer-tagline">Connecting every Richmond resident — across The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, and Southside — to the services, support, and opportunities they deserve.</p>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.4)">A civic-tech initiative for<br>Richmond, Virginia.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="directory.html">Resource directory</a>
+            <a href="programs.html">Programs &amp; events</a>
+            <a href="get-help.html">Get help now</a>
+            <a href="suggest.html">Suggest a resource</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <div class="footer-links">
+            <a href="about.html">Our mission</a>
+            <a href="about.html#team">Our team</a>
+            <a href="about.html#partners">Partners</a>
+            <a href="faq.html">FAQ</a>
+            <a href="faq.html#contact">Contact us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Emergency resources</h4>
+          <div class="footer-emergency">
+            <h5>🚨 Crisis lines</h5>
+            <div class="emergency-line"><strong>988 Suicide &amp; Crisis Lifeline</strong><span>Call or text 988 · 24/7</span></div>
+            <div class="emergency-line"><strong>Homeward Intake (housing crisis)</strong><span>(804) 972-0813 · 24/7</span></div>
+            <div class="emergency-line"><strong>YWCA Richmond DV Hotline</strong><span>(804) 612-6126 · 24/7</span></div>
+            <a href="get-help.html" class="btn btn--danger btn--sm" style="margin-top:0.75rem;width:100%;justify-content:center">View all emergency resources</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 CoFundly · Richmond, Virginia. Content is reviewed quarterly for accuracy.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Accessibility</a>
+          <a href="faq.html#contact">Contact</a>
+          <a href="website-references.html">Website References</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div id="modal-content" class="modal"></div>
+  </div>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/directory.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Build sidebar category buttons
+      const sidebar = document.getElementById('sidebar-cats');
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.id = `sidebar-${cat.id}`;
+        btn.innerHTML = `<span class="filter-dot" style="background:${cat.color}"></span>${cat.label}`;
+        btn.onclick = () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          setCategory(cat.id);
+        };
+        sidebar.appendChild(btn);
+      });
+
+      document.getElementById('sidebar-all').onclick = () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('sidebar-all').classList.add('active');
+        setCategory(null);
+      };
+
+      // Populate neighborhood dropdown from data
+      const neighSelect = document.getElementById('neighborhood-select');
+      if (neighSelect && Array.isArray(window.NEIGHBORHOODS)) {
+        window.NEIGHBORHOODS.forEach(n => {
+          const opt = document.createElement('option');
+          opt.value = n;
+          opt.textContent = n;
+          neighSelect.appendChild(opt);
+        });
+        neighSelect.addEventListener('change', (e) => {
+          setNeighborhood(e.target.value || null);
+        });
+      }
+
+      // Sort handler
+      document.getElementById('sort-select')?.addEventListener('change', (e) => {
+        setSort(e.target.value);
+      });
+
+    });
+
+    function filterUrgent() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      activeCategory = null;
+      activeNeighborhood = null;
+      searchQuery = '';
+      const input = document.getElementById('search-input');
+      if (input) input.value = '';
+      const neigh = document.getElementById('neighborhood-select');
+      if (neigh) neigh.value = '';
+      const grid = document.getElementById('directory-grid');
+      const results = RESOURCES.filter(r => r.urgent);
+      document.getElementById('result-count').textContent = `${results.length} urgent resource${results.length !== 1 ? 's' : ''}`;
+      grid.innerHTML = results.length ? results.map(r => buildResourceCard(r)).join('') :
+        '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔍</div><h3>No urgent resources found</h3></div>';
+      if (typeof syncFavoriteButtons === 'function') syncFavoriteButtons();
+    }
+
+    function filterFavorites() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      const ids = typeof Favorites !== 'undefined' ? Favorites.get() : [];
+      const results = RESOURCES.filter(r => ids.includes(r.id));
+      const grid = document.getElementById('directory-grid');
+      document.getElementById('result-count').textContent = `${results.length} saved`;
+      grid.innerHTML = results.length ? results.map(r => buildResourceCard(r)).join('') :
+        '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔖</div><h3>No saved resources yet</h3><p>Click the ♡ heart on any resource card to save it here.</p></div>';
+      if (typeof syncFavoriteButtons === 'function') syncFavoriteButtons();
+    }
+
+    // Keep the sidebar category button active-state in sync with chip clicks.
+    const origSetCategory = window.setCategory;
+    window.setCategory = (catId) => {
+      origSetCategory(catId);
+      document.querySelectorAll('[id^="sidebar-"]').forEach(b => b.classList.remove('active'));
+      const target = catId ? document.getElementById(`sidebar-${catId}`) : document.getElementById('sidebar-all');
+      target?.classList.add('active');
+    };
+  </script>
+
+  <!-- Saved Resources Drawer -->
+  <div class="saved-drawer" id="saved-drawer" role="dialog" aria-modal="true" aria-label="Saved resources">
+    <div class="saved-drawer-backdrop" id="saved-drawer-backdrop"></div>
+    <div class="saved-drawer-inner">
+      <div class="saved-drawer-header">
+        <h2>Saved Resources</h2>
+        <button class="saved-drawer-close" id="saved-drawer-close" aria-label="Close">✕</button>
+      </div>
+      <div class="saved-drawer-body" id="saved-drawer-body"></div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+

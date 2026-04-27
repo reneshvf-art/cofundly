@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website references, work log, and copyright documentation for CoFundly Richmond — Technosphere 2026.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Website References — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .ref-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(234,88,12,0.85);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ref-section-title::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #ea580c;
+      flex-shrink: 0;
+    }
+    .ref-doc-group h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .ref-doc-group p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+    /* Copyright centred */
+    .ref-copyright-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .ref-copyright-wrap .ref-img-card {
+      width: 100%;
+      max-width: 520px;
+    }
+    /* Work log carousel */
+    .wl-carousel {
+      position: relative;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .wl-carousel-track {
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+    .wl-carousel-slides {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+    .wl-slide {
+      min-width: 100%;
+    }
+    .wl-img-wrap {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+    .wl-img-wrap img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 134%;
+      height: auto;
+      max-width: none;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .wl-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .wl-carousel-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .wl-carousel-btn:hover {
+      background: rgba(249,115,22,0.12);
+      border-color: #f97316;
+      color: #f97316;
+    }
+    .wl-carousel-counter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+    .ref-img-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .ref-img-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .ref-img-label {
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .ref-sources-placeholder {
+      background: var(--surface);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .ref-sources-placeholder p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      .ref-docs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script>(function(){var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var isReload=nav?nav.type==="reload":(performance.navigation&&performance.navigation.type===1);if(isReload){sessionStorage.removeItem("cf_a11y_dismissed");sessionStorage.removeItem("cf_alert_dismissed");}if(sessionStorage.getItem("cf_a11y_dismissed"))document.documentElement.classList.add("a11y-hidden");if(sessionStorage.getItem("cf_alert_dismissed"))document.documentElement.classList.add("alert-hidden");})();</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Accessibility bar -->
+  <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
+    <span>Accessibility:</span>
+    <button data-a11y="increase" aria-label="Increase font size">A+</button>
+    <button data-a11y="decrease" aria-label="Decrease font size">A−</button>
+    <button data-a11y="reset" aria-label="Reset font size">Reset</button>
+    <button data-a11y="close" aria-label="Close accessibility bar" style="margin-left:auto">✕</button>
+  </div>
+
+  <!-- Emergency alert bar -->
+  <div class="help-bar" role="alert">
+    <div class="help-bar-content">
+      <strong>🚨 Need help right now?</strong>
+      <span>Crisis line: <a href="tel:988">988</a> · Homeward intake (24/7): <a href="tel:8049720813">(804) 972-0813</a> · YWCA DV hotline: <a href="tel:8046126126">(804) 612-6126</a></span>
+    </div>
+    <button class="help-bar-close" aria-label="Dismiss alert">✕</button>
+  </div>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="directory.html">Resources</a>
+        <a href="programs.html">Programs &amp; Events</a>
+        <a href="get-help.html">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a>
+        <a href="donate.html" class="nav-donate">Donate</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="saved-nav-btn" id="saved-nav-btn" aria-label="View saved resources" aria-expanded="false">
+          <span class="saved-nav-icon">♥</span>
+          <span class="saved-nav-label">Saved</span>
+          <span class="fav-count" style="display:none"></span>
+        </button>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs &amp; Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="donate.html" class="nav-donate">Donate</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ &amp; Contact</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <header class="page-hero">
+      <div class="container">
+        <div class="section-label" style="color:var(--amber-light);margin-bottom:.75rem">Technosphere 2026</div>
+        <h1>Website <span>References</span></h1>
+        <p>Work log, copyright documentation, and sources for the CoFundly Richmond project.</p>
+      </div>
+    </header>
+
+    <!-- Sources placeholder -->
+    <section class="section section--sm">
+      <div class="container">
+        <div class="ref-doc-group">
+  <h3>Project Documentation</h3>
+  <p>This document contains extended written components, planning, and supporting material for the CoFundly Richmond project.</p>
+
+  <div class="ref-img-card" style="padding:1rem;text-align:center">
+    <a href="https://docs.google.com/document/d/1vsW-qiDhhkJQCvVPKGTAXxx9CIGJHEH9cX6r51CQ5Cs/edit?tab=t.0" 
+       target="_blank" 
+       style="font-weight:600;color:#F97316;text-decoration:none;">
+       View Full Project Document →
+    </a>
+  </div>
+</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div>
+            <span class="nav-logo-text">Co<span>Fundly</span></span>
+          </a>
+          <p class="footer-tagline">Connecting every Richmond resident — across The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, and Southside — to the services, support, and opportunities they deserve.</p>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.4)">A civic-tech initiative for<br>Richmond, Virginia.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="directory.html">Resource directory</a>
+            <a href="programs.html">Programs &amp; events</a>
+            <a href="get-help.html">Get help now</a>
+            <a href="suggest.html">Suggest a resource</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <div class="footer-links">
+            <a href="about.html">Our mission</a>
+            <a href="about.html#team">Our team</a>
+            <a href="about.html#partners">Partners</a>
+            <a href="faq.html">FAQ</a>
+            <a href="faq.html#contact">Contact us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Emergency resources</h4>
+          <div class="footer-emergency">
+            <h5>🚨 Crisis lines</h5>
+            <div class="emergency-line"><strong>988 Suicide &amp; Crisis Lifeline</strong><span>Call or text 988 · 24/7</span></div>
+            <div class="emergency-line"><strong>Homeward Intake (housing crisis)</strong><span>(804) 972-0813 · 24/7</span></div>
+            <div class="emergency-line"><strong>YWCA Richmond DV Hotline</strong><span>(804) 612-6126 · 24/7</span></div>
+            <a href="get-help.html" class="btn btn--danger btn--sm" style="margin-top:0.75rem;width:100%;justify-content:center">View all emergency resources</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 CoFundly · Richmond, Virginia. Content is reviewed quarterly for accuracy.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Accessibility</a>
+          <a href="faq.html#contact">Contact</a>
+          <a href="website-references.html">Website References</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+
+  <!-- Saved Resources Drawer -->
+  <div class="saved-drawer" id="saved-drawer" role="dialog" aria-modal="true" aria-label="Saved resources">
+    <div class="saved-drawer-backdrop" id="saved-drawer-backdrop"></div>
+    <div class="saved-drawer-inner">
+      <div class="saved-drawer-header">
+        <h2>Saved Resources</h2>
+        <button class="saved-drawer-close" id="saved-drawer-close" aria-label="Close">✕</button>
+      </div>
+      <div class="saved-drawer-body" id="saved-drawer-body"></div>
+    </div>
+  </div>
+</body>
+</html>
