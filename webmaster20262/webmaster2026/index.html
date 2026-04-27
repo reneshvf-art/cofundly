@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CoFundly connects Richmond, Virginia residents to food, housing, healthcare, mental health, jobs, and community resources — free, verified, and built for RVA.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>CoFundly — Richmond, Virginia's Community Resource Hub</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <!-- Spline viewer (loads the <spline-viewer> custom element) -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Accessibility bar -->
+  <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
+    <span>Accessibility:</span>
+    <button data-a11y="increase" aria-label="Increase font size">A+</button>
+    <button data-a11y="decrease" aria-label="Decrease font size">A−</button>
+    <button data-a11y="reset" aria-label="Reset font size">Reset</button>
+    <button data-a11y="close" aria-label="Close accessibility bar" style="margin-left:auto">✕</button>
+  </div>
+
+  <!-- Emergency alert bar -->
+  <div class="help-bar" role="alert">
+    <div class="help-bar-content">
+      <strong>🚨 Need help right now?</strong>
+      <span>Crisis line: <a href="tel:988">988</a> · Homeward intake (24/7): <a href="tel:8049720813">(804) 972-0813</a> · YWCA DV hotline: <a href="tel:8046126126">(804) 612-6126</a></span>
+    </div>
+    <button class="help-bar-close" aria-label="Dismiss alert">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+            <path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+
+      <div class="nav-links" role="list">
+        <a href="index.html" role="listitem">Home</a>
+        <a href="directory.html" role="listitem">Resources</a>
+        <a href="programs.html" role="listitem">Programs & Events</a>
+        <a href="get-help.html" role="listitem">Get Help Now</a>
+        <a href="suggest.html" role="listitem">Suggest a Resource</a>
+        <a href="about.html" role="listitem">About</a>
+        <a href="faq.html" role="listitem">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+          <span class="icon-sun" aria-hidden="true">☀️</span>
+        </button>
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ & Contact</a>
+    <a href="get-help.html" class="btn btn--amber">Get Help Now →</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <!-- ===== Title Spline scene (full-bleed banner above the hero) ===== -->
+    <section class="title-spline" aria-label="CoFundly title scene">
+      <spline-viewer
+        class="title-spline-viewer"
+        url="https://prod.spline.design/YOUR-SCENE-ID/scene.splinecode"
+        loading-anim="true"
+        events-target="local"></spline-viewer>
+      <!-- Fallback shows behind the viewer if the scene fails or is on mobile -->
+      <div class="title-spline-fallback" aria-hidden="true"></div>
+    </section>
+
+    <!-- ===== Hero with Spline 3D background ===== -->
+    <section class="hero" aria-labelledby="hero-heading">
+
+      <!--
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  SPLINE SCENE                                                  ║
+        ║  Paste your scene URL into the data-spline-scene attribute     ║
+        ║  below (must end in .splinecode). See SETUP.md for the full    ║
+        ║  step-by-step. Leaving the placeholder triggers the animated   ║
+        ║  gradient fallback automatically — the site looks great either ║
+        ║  way, so you can ship without a scene if you want to.          ║
+        ╚════════════════════════════════════════════════════════════════╝
+      -->
+      <div class="hero-spline-stage" aria-hidden="true">
+        <div class="spline-stage"
+             data-spline-scene="PASTE_YOUR_SPLINE_SCENE_URL_HERE"
+             data-spline-mobile="off"
+             role="presentation">
+        </div>
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <div class="hero-content animate-fadeUp">
+          <div class="hero-trust">
+            <span class="hero-trust-dot" aria-hidden="true"></span>
+            Built in Richmond · Free · 180+ verified organizations
+          </div>
+          <h1 id="hero-heading" class="text-display">
+            Richmond's help,<br>
+            <span class="text-gradient">all in one place.</span>
+          </h1>
+          <p class="text-lead" style="margin-top:1.25rem;max-width:560px">
+            CoFundly connects every RVA resident to food, housing, healthcare, mental health, jobs, and community support — across The Fan, Southside, Church Hill, and every neighborhood in between.
+          </p>
+
+          <!-- Hero search -->
+          <div class="hero-search animate-fadeUp-delay-1" style="margin-top:2rem">
+            <div class="search-bar hero-searchbar">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                type="search"
+                id="hero-search"
+                placeholder="Search food, shelter, therapy, childcare, legal help…"
+                aria-label="Search community resources"
+                autocomplete="off">
+              <button class="search-clear" aria-label="Clear search">✕</button>
+            </div>
+            <div class="hero-quick-cats" role="list" aria-label="Quick category filters">
+              <a href="directory.html?cat=food" class="quick-cat-pill" role="listitem">🥗 Food</a>
+              <a href="directory.html?cat=housing" class="quick-cat-pill" role="listitem">🏠 Housing</a>
+              <a href="directory.html?cat=health" class="quick-cat-pill" role="listitem">🩺 Health</a>
+              <a href="directory.html?cat=employment" class="quick-cat-pill" role="listitem">💼 Jobs</a>
+              <a href="directory.html?cat=mental-health" class="quick-cat-pill" role="listitem">💬 Mental Health</a>
+              <a href="directory.html" class="quick-cat-pill quick-cat-all">Browse all →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating-card fallback visual.
+             Also appears on mobile where Spline is intentionally skipped. -->
+        <div class="hero-visual animate-fadeUp-delay-2" aria-hidden="true">
+          <div class="hero-card-stack">
+            <div class="hero-floating-card hero-card-1">
+              <div style="width:38px;height:38px;background:rgba(234,88,12,0.14);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🥗</div>
+              <div>
+                <div style="font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:2px">Feed More Central VA</div>
+                <div style="font-size:0.7rem;color:var(--text-muted)">Open today · No ID required</div>
+              </div>
+            </div>
+            <div class="hero-floating-card hero-card-2">
+              <div style="width:38px;height:38px;background:rgba(30,58,95,0.14);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🏠</div>
+              <div>
+                <div style="font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:2px">Homeward Intake</div>
+                <div style="font-size:0.7rem;color:var(--text-muted)">24/7 · Central assessment</div>
+              </div>
+            </div>
+            <div class="hero-floating-card hero-card-3">
+              <div style="width:38px;height:38px;background:rgba(124,58,237,0.14);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">💬</div>
+              <div>
+                <div style="font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:2px">Chamberlin Therapy</div>
+                <div style="font-size:0.7rem;color:var(--text-muted)">Sliding scale · Same-week</div>
+              </div>
+            </div>
+            <div class="hero-stat-bubble">
+              <span style="font-family:var(--font-display);font-size:1.7rem;color:var(--amber-light);display:block;line-height:1">180+</span>
+              <span style="font-size:0.7rem;color:rgba(255,255,255,0.78)">RVA Partners</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Stats ===== -->
+    <section class="stats-section bg-navy" aria-label="Impact statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item animate-fadeUp">
+            <span class="stat-number" data-target="230,000+">0</span>
+            <span class="stat-label">Richmond residents we serve</span>
+          </div>
+          <div class="stat-item animate-fadeUp-delay-1">
+            <span class="stat-number" data-target="180+">0</span>
+            <span class="stat-label">Verified partner organizations</span>
+          </div>
+          <div class="stat-item animate-fadeUp-delay-2">
+            <span class="stat-number" data-target="12">0</span>
+            <span class="stat-label">Service categories</span>
+          </div>
+          <div class="stat-item animate-fadeUp-delay-3">
+            <span class="stat-number" data-target="98%">0%</span>
+            <span class="stat-label">Say they found what they needed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Community highlights — at least 3 Richmond orgs ===== -->
+    <section class="section" id="highlights" aria-labelledby="highlights-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Richmond community highlights</div>
+          <div class="divider"></div>
+          <h2 id="highlights-heading">Organizations moving<br>RVA forward.</h2>
+          <p style="max-width:540px;margin-top:0.75rem">Each of these partners is verified, actively serving residents, and has been anchoring Richmond's safety net for years.</p>
+        </div>
+        <div class="highlight-grid" id="highlight-grid">
+          <!-- Rendered by JS from HIGHLIGHT_PARTNERS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Featured Resources ===== -->
+    <section class="section" id="featured" aria-labelledby="featured-heading" style="background:var(--bg-warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Spotlight resources</div>
+          <div class="divider"></div>
+          <h2 id="featured-heading">Essential services,<br>close to home.</h2>
+          <p style="max-width:520px;margin-top:0.75rem">Hand-picked by our team — the programs Richmond residents rely on most right now.</p>
+        </div>
+        <div class="featured-grid" id="featured-grid">
+          <!-- Rendered by JS -->
+        </div>
+        <div style="text-align:center;margin-top:2.5rem">
+          <a href="directory.html" class="btn btn--secondary btn--lg">Browse all resources →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Quick Links ===== -->
+    <section class="section section--sm" aria-labelledby="quicklinks-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Common needs</div>
+          <div class="divider"></div>
+          <h2 id="quicklinks-heading">What do you need today?</h2>
+        </div>
+        <div class="quicklinks-grid">
+          <a href="directory.html?cat=food" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(234,88,12,0.14)">🥗</div>
+            <div class="quick-link-text">
+              <strong>Food assistance</strong>
+              <span>Pantries, meals, SNAP help</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+          <a href="get-help.html" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(220,38,38,0.14)">🚨</div>
+            <div class="quick-link-text">
+              <strong>Emergency help</strong>
+              <span>Crisis lines and urgent resources</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+          <a href="directory.html?cat=housing" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(30,58,95,0.14)">🏠</div>
+            <div class="quick-link-text">
+              <strong>Housing & shelter</strong>
+              <span>Emergency shelter, rent assistance</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+          <a href="directory.html?cat=health" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(13,148,136,0.14)">🩺</div>
+            <div class="quick-link-text">
+              <strong>Health care</strong>
+              <span>Clinics, insurance, prescriptions</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+          <a href="directory.html?cat=employment" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(180,83,9,0.14)">💼</div>
+            <div class="quick-link-text">
+              <strong>Jobs & training</strong>
+              <span>Resumes, certifications, hiring</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+          <a href="directory.html?cat=mental-health" class="quick-link">
+            <div class="quick-link-icon" style="background:rgba(124,58,237,0.14)">💬</div>
+            <div class="quick-link-text">
+              <strong>Mental health</strong>
+              <span>Counseling, crisis, recovery</span>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Upcoming Events ===== -->
+    <section class="section" aria-labelledby="events-heading" style="background:var(--bg-warm);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="flex-between" style="margin-bottom:2rem;flex-wrap:wrap;gap:1rem">
+          <div>
+            <div class="section-label">Community calendar</div>
+            <div class="divider"></div>
+            <h2 id="events-heading">Upcoming programs<br>& events in RVA.</h2>
+          </div>
+          <a href="programs.html" class="btn btn--secondary">View full calendar</a>
+        </div>
+        <div class="events-preview-grid" id="events-preview">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Testimonials ===== -->
+    <section class="section testimonials-section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header--center">
+          <div class="section-label" style="justify-content:center">Community voices</div>
+          <div class="divider divider--center"></div>
+          <h2 id="testimonials-heading">Real people,<br>real impact.</h2>
+        </div>
+        <div class="testimonials-grid" id="testimonials-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA Banner ===== -->
+    <section class="cta-banner" aria-label="Call to action">
+      <div class="container cta-inner">
+        <div>
+          <h2 style="color:#fff;margin-bottom:0.5rem;max-width:520px">Know a Richmond resource that should be here?</h2>
+          <p style="color:rgba(255,255,255,0.75);max-width:520px">Help us keep CoFundly complete and up-to-date. Suggest a new organization, program, or service — we review every submission in 5 business days.</p>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="suggest.html" class="btn btn--amber btn--lg">Suggest a resource</a>
+          <a href="about.html" class="btn btn--ghost btn--lg">About CoFundly</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                <path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/>
+              </svg>
+            </div>
+            <span class="nav-logo-text">Co<span>Fundly</span></span>
+          </a>
+          <p class="footer-tagline">Connecting every Richmond resident — across The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, and Southside — to the services, support, and opportunities they deserve.</p>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.4)">
+            A civic-tech initiative for<br>Richmond, Virginia.
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="directory.html">Resource directory</a>
+            <a href="programs.html">Programs & events</a>
+            <a href="get-help.html">Get help now</a>
+            <a href="suggest.html">Suggest a resource</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <div class="footer-links">
+            <a href="about.html">Our mission</a>
+            <a href="about.html#team">Our team</a>
+            <a href="about.html#partners">Partners</a>
+            <a href="faq.html">FAQ</a>
+            <a href="faq.html#contact">Contact us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Emergency resources</h4>
+          <div class="footer-emergency">
+            <h5>🚨 Crisis lines</h5>
+            <div class="emergency-line">
+              <strong>988 Suicide & Crisis Lifeline</strong>
+              <span>Call or text 988 · 24/7</span>
+            </div>
+            <div class="emergency-line">
+              <strong>Homeward Intake (housing crisis)</strong>
+              <span>(804) 972-0813 · 24/7</span>
+            </div>
+            <div class="emergency-line">
+              <strong>YWCA Richmond DV Hotline</strong>
+              <span>(804) 612-6126 · 24/7</span>
+            </div>
+            <a href="get-help.html" class="btn btn--danger btn--sm" style="margin-top:0.75rem;width:100%;justify-content:center">View all emergency resources</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 CoFundly · Richmond, Virginia. Content is reviewed quarterly for accuracy.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy policy</a>
+          <a href="#">Accessibility</a>
+          <a href="faq.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Resource details">
+    <div id="modal-content" class="modal"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/directory.js"></script>
+  <script src="js/spline.js"></script>
+  <script>
+    // Home-specific renders — runs after all data + helpers are loaded.
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ----- Featured resources -----
+      const grid = document.getElementById('featured-grid');
+      if (grid) {
+        const featured = RESOURCES.filter(r => r.featured).slice(0, 3);
+        grid.innerHTML = featured.map(r => {
+          const color = getCatColor(r.category);
+          const icon = getCatIcon(r.category);
+          return `
+            <article class="featured-card">
+              <div class="featured-card-header">
+                <div class="featured-icon" style="background:${color}18;color:${color}">${icon}</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+                  ${r.urgent ? '<span class="badge badge--urgent">⚡ Urgent</span>' : ''}
+                  ${r.verified ? '<span class="badge badge--verified">✓ Verified</span>' : ''}
+                </div>
+              </div>
+              <div class="featured-card-body">
+                <div style="font-size:0.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${color};margin-bottom:.4rem">${getCatLabel(r.category)}</div>
+                <h3>${r.name}</h3>
+                <p>${r.shortDesc}</p>
+                <button class="btn btn--primary" onclick="openResourceModal(${r.id})">
+                  View details →
+                </button>
+              </div>
+              <div class="featured-card-footer">
+                <span style="font-size:0.8rem;color:var(--text-muted)">📍 ${r.neighborhood}</span>
+                <span style="font-size:0.8rem;color:var(--text-muted)">🕐 ${r.hours.split(',')[0].split('·')[0].trim()}</span>
+              </div>
+            </article>`;
+        }).join('');
+      }
+
+      // ----- Highlight partners (top 3 Richmond orgs) -----
+      const highlightGrid = document.getElementById('highlight-grid');
+      if (highlightGrid && Array.isArray(window.HIGHLIGHT_PARTNERS)) {
+        highlightGrid.innerHTML = window.HIGHLIGHT_PARTNERS.map((h, i) => {
+          const full = RESOURCES.find(r => r.id === h.id);
+          const color = full ? getCatColor(full.category) : 'var(--navy)';
+          const icon = full ? getCatIcon(full.category) : '🏛️';
+          return `
+            <article class="highlight-card animate-fadeUp${i === 1 ? '-delay-1' : i === 2 ? '-delay-2' : ''}">
+              <div class="highlight-card-number" aria-hidden="true">0${i + 1}</div>
+              <div class="highlight-card-years">${h.years}</div>
+              <h3>${full ? full.name : h.name}</h3>
+              <p>${h.tagline}${full ? ' · ' + full.neighborhood : ''}</p>
+              <button class="highlight-card-link" onclick="openResourceModal(${h.id})" aria-label="View details for ${full ? full.name : h.name}">
+                <span>Meet this partner</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </article>`;
+        }).join('');
+      }
+
+      // ----- Events preview (next 3) -----
+      const eventsGrid = document.getElementById('events-preview');
+      if (eventsGrid) {
+        const preview = EVENTS.slice(0, 3);
+        eventsGrid.innerHTML = preview.map(ev => {
+          const d = new Date(ev.date);
+          const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+          const day = d.getDate();
+          return `
+            <article class="event-card">
+              <div class="event-date-box">
+                <span class="event-date-month">${month}</span>
+                <span class="event-date-day">${day}</span>
+              </div>
+              <div class="event-card-content">
+                <h3>${ev.title}</h3>
+                <div class="event-meta">
+                  <span>🕐 ${ev.time}</span>
+                  <span>📍 ${ev.neighborhood}</span>
+                  ${ev.free ? '<span class="badge badge--free">Free</span>' : ''}
+                </div>
+                <p>${ev.description}</p>
+                ${ev.registration ? `<a href="${ev.registrationUrl}" class="btn btn--secondary btn--sm" style="margin-top:.75rem">Register →</a>` : ''}
+              </div>
+            </article>`;
+        }).join('');
+      }
+
+      // ----- Testimonials -----
+      const testsGrid = document.getElementById('testimonials-grid');
+      if (testsGrid) {
+        testsGrid.innerHTML = TESTIMONIALS.map(t => `
+          <article class="testimonial-card animate-fadeUp">
+            <p class="testimonial-quote">${t.quote}</p>
+            <div class="testimonial-author">
+              <strong>${t.name}</strong>
+              <span>${t.context}</span>
+            </div>
+          </article>`).join('');
+      }
+    });
+
+    // Hero search redirect
+    document.getElementById('hero-search')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const q = e.target.value.trim();
+        if (q) window.location.href = `directory.html?q=${encodeURIComponent(q)}`;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Immediate help for Richmond, Virginia residents — crisis lines, emergency shelter, food, and urgent assistance available right now.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Get Help Now — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .urgent-hero { background: #1A0A0A; padding: 3rem 0; border-bottom: 3px solid var(--red); }
+    .urgent-hero h1 { color: #fff; }
+    .urgent-hero p { color: rgba(255,255,255,.65); }
+    .crisis-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .crisis-card { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: var(--radius-lg); padding: 1.5rem; }
+    [data-theme="dark"] .crisis-card { background: rgba(220,38,38,.1); border-color: rgba(220,38,38,.25); }
+    .crisis-card h3 { font-size: 1.1rem; color: var(--text); margin-bottom: .3rem; }
+    .crisis-number { font-family: var(--font-display); font-size: 1.8rem; color: #991B1B; display: block; margin: .4rem 0; }
+    [data-theme="dark"] .crisis-number { color: #FCA5A5; }
+    .crisis-note { font-size: .78rem; color: var(--text-muted); }
+    .urgent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; border-left: 4px solid var(--red); transition: box-shadow var(--transition); }
+    .urgent-card:hover { box-shadow: var(--shadow-md); }
+    .urgent-card h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+    .urgent-number { font-family: var(--font-display); font-size: 1.4rem; color: var(--navy); display: block; margin: .35rem 0; }
+    [data-theme="dark"] .urgent-number { color: var(--amber); }
+    .steps-list { counter-reset: steps; list-style: none; }
+    .steps-list li { counter-increment: steps; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
+    .step-num::before { content: counter(steps); }
+    @media(max-width:640px){ .crisis-grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div><span class="nav-logo-text">Co<span>Fundly</span></span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a><a href="directory.html">Resources</a>
+        <a href="programs.html">Programs & Events</a>
+        <a href="get-help.html" class="active">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a><a href="about.html">About</a><a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="icon-moon">🌙</span><span class="icon-sun">☀️</span></button>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu"><a href="index.html">Home</a><a href="directory.html">Resource Directory</a><a href="programs.html">Programs & Events</a><a href="get-help.html">Get Help Now</a><a href="suggest.html">Suggest a Resource</a><a href="about.html">About</a><a href="faq.html">FAQ & Contact</a></div>
+
+  <main id="main" class="page-wrapper">
+
+    <header class="urgent-hero">
+      <div class="container">
+        <div class="section-label" style="color:#F87171;margin-bottom:.75rem">🚨 Emergency & immediate assistance</div>
+        <h1>Get help now in Richmond.</h1>
+        <p style="max-width:560px">You are not alone. Here are the fastest ways to get immediate support in the Richmond area — no appointments, no judgment, no barriers.</p>
+        <div style="background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-top:1.5rem;display:inline-flex;align-items:center;gap:.75rem;color:#FCA5A5;font-weight:600;font-size:.95rem">
+          <span style="font-size:1.3rem">📞</span>
+          <span>If you are in immediate danger, call <a href="tel:911" style="color:#fff;font-size:1.1rem;text-decoration:underline">911</a> immediately.</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Crisis lines -->
+    <section class="section section--sm">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" style="color:var(--red)">Crisis Lines — Available 24/7</div>
+          <div class="divider" style="background:var(--red)"></div>
+          <h2>Call or text anytime.</h2>
+          <p>These lines are free, confidential, and staffed around the clock.</p>
+        </div>
+        <div class="crisis-grid">
+          <div class="crisis-card">
+            <h3>🧠 Mental Health & Suicide Prevention</h3>
+            <a href="tel:988" class="crisis-number">988</a>
+            <p class="crisis-note">National Suicide &amp; Crisis Lifeline · Call or text · 24/7 · Free &amp; confidential · Chat at 988lifeline.org</p>
+          </div>
+          <div class="crisis-card">
+            <h3>💔 Domestic & Sexual Violence</h3>
+            <a href="tel:8046126126" class="crisis-number">(804) 612-6126</a>
+            <p class="crisis-note">YWCA Richmond · 24/7 local hotline · Emergency shelter, counseling, advocacy · Spanish-speaking advocates available</p>
+          </div>
+          <div class="crisis-card">
+            <h3>🏠 Housing Crisis (Richmond)</h3>
+            <a href="tel:8049720813" class="crisis-number">(804) 972-0813</a>
+            <p class="crisis-note">Homeward 24/7 intake · Central assessment for emergency shelter &amp; rapid re-housing across Richmond + surrounding counties</p>
+          </div>
+          <div class="crisis-card">
+            <h3>👶 Virginia Child Abuse Hotline</h3>
+            <a href="tel:18005525400" class="crisis-number">1-800-552-5400</a>
+            <p class="crisis-note">Virginia Department of Social Services · Report abuse or neglect · 24/7 · Anonymous reports accepted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Urgent local resources -->
+    <section class="section section--sm" style="background:var(--bg-warm);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Richmond urgent help</div>
+          <div class="divider"></div>
+          <h2>Local resources available now.</h2>
+        </div>
+        <div class="grid grid-2" style="gap:1rem">
+          <div class="urgent-card">
+            <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">🏠 Emergency shelter & housing</div>
+            <h3>Homeward Community Resource Center</h3>
+            <a href="tel:8049720813" class="urgent-number">(804) 972-0813</a>
+            <p style="font-size:.87rem;margin-bottom:.75rem">Central intake for Richmond's shelter network (CARITAS, HomeAgain, Daily Planet). 24/7 assessment line connects callers to a bed within hours. Families, individuals, and youth accepted.</p>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <a href="tel:8049720813" class="btn btn--danger btn--sm">Call now</a>
+              <span style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center">📍 413 Stuart Circle, The Fan</span>
+            </div>
+          </div>
+          <div class="urgent-card">
+            <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">🏠 Rent & utility emergency</div>
+            <h3>Richmond Emergency Rent & Utility</h3>
+            <a href="tel:8046467706" class="urgent-number">(804) 646-7706</a>
+            <p style="font-size:.87rem;margin-bottom:.75rem">City of Richmond grants up to $3,000 for households facing eviction or utility shutoff. Decisions within 5 business days. Bilingual application support.</p>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <a href="tel:8046467706" class="btn btn--danger btn--sm">Call now</a>
+              <a href="https://rva.gov/rentassist" target="_blank" rel="noopener" class="btn btn--secondary btn--sm">Apply online →</a>
+            </div>
+          </div>
+          <div class="urgent-card">
+            <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">🥗 Emergency food</div>
+            <h3>Feed More Central Virginia</h3>
+            <a href="tel:8045212500" class="urgent-number">(804) 521-2500</a>
+            <p style="font-size:.87rem;margin-bottom:.75rem">Walk-in emergency groceries Mon–Fri 9am–4pm. No appointment, no ID required. Mobile pantries rotate through Southside, Church Hill, and Northside each week.</p>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <a href="tel:8045212500" class="btn btn--danger btn--sm">Call now</a>
+              <span style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center">📍 1415 Rhoadmiller St</span>
+            </div>
+          </div>
+          <div class="urgent-card">
+            <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">⚖️ Urgent legal help</div>
+            <h3>Central Virginia Legal Aid Society</h3>
+            <a href="tel:8046481012" class="urgent-number">(804) 648-1012</a>
+            <p style="font-size:.87rem;margin-bottom:.75rem">Priority intake for active eviction cases and domestic-violence protective orders. Walk-in eviction clinic every Wednesday at the Oliver Hill Courts Building.</p>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <a href="tel:8046481012" class="btn btn--danger btn--sm">Call now</a>
+              <span style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center">Wed walk-in 9am–12pm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to do / steps -->
+    <section class="section section--sm">
+      <div class="container" style="max-width:700px">
+        <div class="section-header">
+          <div class="section-label">Step by Step</div>
+          <div class="divider"></div>
+          <h2>Not sure where to start?</h2>
+          <p>Follow these steps to connect with the right help as quickly as possible.</p>
+        </div>
+        <ol class="steps-list">
+          <li>
+            <div class="step-num"></div>
+            <div>
+              <strong style="display:block;font-size:1rem;color:var(--text);margin-bottom:4px">Identify your most urgent need</strong>
+              <p style="font-size:.9rem">Are you safe right now? Do you have food and shelter tonight? Prioritize immediate safety above everything else.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num"></div>
+            <div>
+              <strong style="display:block;font-size:1rem;color:var(--text);margin-bottom:4px">Call the right line above</strong>
+              <p style="font-size:.9rem">The crisis lines and local numbers above are staffed now and can connect you to immediate resources. You don't need to have all the information ready — just call.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num"></div>
+            <div>
+              <strong style="display:block;font-size:1rem;color:var(--text);margin-bottom:4px">Browse the resource directory for longer-term support</strong>
+              <p style="font-size:.9rem">Once immediate needs are addressed, <a href="directory.html" style="color:var(--navy);font-weight:600">the full resource directory</a> has verified organizations for ongoing assistance with housing stability, healthcare, employment, and more.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num"></div>
+            <div>
+              <strong style="display:block;font-size:1rem;color:var(--text);margin-bottom:4px">Ask an organization to connect you to others</strong>
+              <p style="font-size:.9rem">Most organizations in our directory have case managers or "navigators" who can help connect you to other services you may qualify for.</p>
+            </div>
+          </li>
+        </ol>
+        <div style="background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-top:2rem;text-align:center">
+          <p style="margin-bottom:1rem;font-size:.95rem">Still not sure where to turn?<br><strong style="color:var(--text)">CoFundly is here to help you find the right Richmond resource.</strong></p>
+          <a href="faq.html#contact" class="btn btn--primary">Contact our team →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:1.5rem">
+        <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div><span class="nav-logo-text">Co<span>Fundly</span></span></a>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.35)">© 2026 CoFundly · Richmond, Virginia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+/* ============================================
+   CoFundly — home.css
+   Hero · Spline stage · Stats · Highlights
+   ============================================ */
+
+/* ---- Title Spline scene (full-bleed, sits above the hero) ---- */
+.title-spline {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 460px;
+  max-height: 760px;
+  background: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+  border-bottom: 1px solid var(--border);
+}
+.title-spline .title-spline-viewer,
+.title-spline spline-viewer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  background: transparent;
+}
+/* Soft animated gradient that shows behind the viewer (and replaces it on mobile) */
+.title-spline-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(249,115,22,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(30,58,95,0.22) 0%, transparent 65%),
+    linear-gradient(135deg, var(--bg-warm) 0%, var(--bg) 100%);
+}
+[data-theme="dark"] .title-spline-fallback {
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(249,115,22,0.20) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(42,79,128,0.32) 0%, transparent 65%),
+    linear-gradient(135deg, #0B1220 0%, #142741 100%);
+}
+@media (max-width: 768px) {
+  .title-spline {
+    height: 42vh;
+    min-height: 280px;
+  }
+  /* Hide the heavy 3D viewer on small screens — fallback gradient takes over */
+  .title-spline spline-viewer { display: none; }
+}
+
+/* ---- Hero shell ---- */
+.hero {
+  position: relative;
+  padding: 4.5rem 0 5.5rem;     /* reduced top — title scene sits above */
+  overflow: hidden;
+  isolation: isolate;           /* contain stacking for ::before blur */
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Spline background stage — absolutely positioned behind content */
+.hero-spline-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;         /* keep content clickable */
+  overflow: hidden;
+}
+.hero-spline-stage .spline-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Soft readability overlay — gradient + vignette above Spline, below text */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      rgba(248,250,252,0.96) 0%,
+      rgba(248,250,252,0.78) 40%,
+      rgba(248,250,252,0.25) 70%,
+      rgba(248,250,252,0.05) 100%
+    ),
+    radial-gradient(ellipse at 95% 30%, rgba(249,115,22,0.10) 0%, transparent 60%);
+}
+[data-theme="dark"] .hero-overlay {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(11,18,32,0.94) 0%,
+      rgba(11,18,32,0.72) 40%,
+      rgba(11,18,32,0.25) 70%,
+      rgba(11,18,32,0.05) 100%
+    ),
+    radial-gradient(ellipse at 95% 30%, rgba(249,115,22,0.16) 0%, transparent 60%);
+}
+
+/* Hero grid */
+.hero-inner {
+  position: relative;
+  z-index: 2;                   /* above overlay */
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero em {
+  font-style: italic;
+  color: var(--amber);
+  position: relative;
+}
+
+.hero .text-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* Trust strip — small line of affiliations above heading */
+.hero-trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+}
+.hero-trust-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.18);
+  animation: pulse-dot 2.6s ease-in-out infinite;
+}
+
+/* Hero search */
+.hero-searchbar input {
+  padding: 1.05rem 1rem 1.05rem 3rem;
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+.hero-quick-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1rem;
+}
+.quick-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: rgba(30,58,95,0.07);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all var(--transition);
+  text-decoration: none;
+  border: 1.5px solid transparent;
+}
+.quick-cat-pill:hover {
+  background: var(--navy);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.quick-cat-all {
+  color: var(--navy);
+  font-weight: 600;
+  border-color: var(--navy);
+  background: transparent;
+}
+[data-theme="dark"] .quick-cat-pill {
+  background: rgba(255,255,255,0.07);
+  color: var(--text-muted);
+}
+[data-theme="dark"] .quick-cat-pill:hover {
+  background: rgba(255,255,255,0.15);
+  color: var(--text);
+}
+[data-theme="dark"] .quick-cat-all {
+  border-color: rgba(255,255,255,0.25);
+  color: var(--text);
+}
+
+/* Hero visual (fallback card stack used when Spline is absent or on mobile) */
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.hero-card-stack {
+  position: relative;
+  width: 360px;
+  height: 340px;
+}
+.hero-floating-card {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+  width: 270px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.hero-card-1 { top: 0; left: 0; animation: float1 5s ease-in-out infinite; }
+.hero-card-2 { top: 50%; left: 30%; transform: translateY(-50%); animation: float2 5s ease-in-out infinite 0.8s; }
+.hero-card-3 { bottom: 0; left: 10%; animation: float3 5s ease-in-out infinite 1.6s; }
+.hero-stat-bubble {
+  position: absolute;
+  top: 48%;
+  right: -10px;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  animation: float2 5s ease-in-out infinite 0.5s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+@keyframes float1 { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+@keyframes float2 { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(calc(-50% - 6px)) translateX(2px); } }
+@keyframes float3 { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-visual { order: -1; }
+}
+@media (max-width: 768px) {
+  .hero { padding: 4.5rem 0 3.5rem; }
+  .hero-visual { display: none; }
+  .hero-overlay {
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(248,250,252,0.94) 40%, var(--bg) 100%);
+  }
+  [data-theme="dark"] .hero-overlay {
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(11,18,32,0.94) 40%, var(--bg) 100%);
+  }
+}
+
+/* ========== Reusable Spline stage ========== */
+.spline-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Animated gradient fallback — visible until Spline loads, or permanently if Spline skipped */
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(30,58,95,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(249,115,22,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(13,148,136,0.14) 0%, transparent 70%),
+    linear-gradient(135deg, #E6EEF8 0%, #F8FAFC 50%, #FFF6ED 100%);
+  overflow: hidden;
+  transition: opacity 400ms ease;
+}
+[data-theme="dark"] .spline-stage {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(42,79,128,0.45) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(249,115,22,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(13,148,136,0.20) 0%, transparent 70%),
+    linear-gradient(135deg, #0B1220 0%, #111827 50%, #0F1E33 100%);
+}
+.spline-stage spline-viewer {
+  opacity: 0;
+  transition: opacity 600ms ease;
+  width: 100%;
+  height: 100%;
+}
+.spline-stage.spline-stage--ready spline-viewer { opacity: 1; }
+
+/* Animated orbs visible during fallback (no Spline) */
+.spline-stage--fallback::before,
+.spline-stage--fallback::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: orbDrift 14s ease-in-out infinite;
+  pointer-events: none;
+}
+.spline-stage--fallback::before {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, #F97316 0%, transparent 70%);
+  top: 15%; right: 10%;
+}
+.spline-stage--fallback::after {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, #1E3A5F 0%, transparent 70%);
+  bottom: 10%; left: 8%;
+  animation-delay: -7s;
+}
+@keyframes orbDrift {
+  0%, 100% { transform: translate(0,0) scale(1); opacity: 0.55; }
+  50%      { transform: translate(22px,-18px) scale(1.08); opacity: 0.7; }
+}
+
+/* ---- Stats ---- */
+.stats-section { padding: 3rem 0; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+@media (max-width: 400px) { .stats-grid { grid-template-columns: 1fr; } }
+
+/* ---- Highlights (Spotlight Partners) ---- */
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.highlight-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.75rem 1.75rem;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.highlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--amber) 100%);
+  opacity: 0.9;
+}
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(30,58,95,0.2);
+}
+.highlight-card-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--amber);
+  line-height: 1;
+}
+.highlight-card-years {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+.highlight-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+.highlight-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+.highlight-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  transition: gap var(--transition), color var(--transition);
+}
+.highlight-card-link:hover { gap: 10px; color: var(--amber-hover); }
+[data-theme="dark"] .highlight-card-link { color: var(--amber-light); }
+
+@media (max-width: 900px) { .highlight-grid { grid-template-columns: 1fr; gap: 1rem; } }
+
+/* ---- Featured grid ---- */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 900px) { .featured-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .featured-grid { grid-template-columns: 1fr; } }
+
+/* ---- Quick links ---- */
+.quicklinks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px) { .quicklinks-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .quicklinks-grid { grid-template-columns: 1fr; } }
+
+/* ---- Events preview ---- */
+.events-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 900px) { .events-preview-grid { grid-template-columns: 1fr; } }
+
+/* ---- Testimonials ---- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA Banner ---- */
+.cta-banner {
+  position: relative;
+  padding: 4.5rem 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 55%, var(--navy-light) 100%);
+  color: #fff;
+  isolation: isolate;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 85% 50%, rgba(249,115,22,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgba(13,148,136,0.12) 0%, transparent 55%);
+  z-index: -1;
+}
+
+/* Optional small Spline accent — can be enabled on the CTA with data attribute */
+.cta-banner .spline-accent {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) { .cta-inner { flex-direction: column; align-items: flex-start; } }

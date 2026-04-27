@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search and filter CoFundly's verified Richmond, Virginia community resource directory — food, housing, health, jobs, legal aid, and more.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Resource Directory — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .directory-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: start; }
+    .filter-sidebar { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 1.5rem; position: sticky; top: calc(var(--nav-height) + 1rem); }
+    .filter-sidebar h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-light); margin-bottom: .75rem; }
+    .filter-divider { height: 1px; background: var(--border-light); margin: 1.25rem 0; }
+    .filter-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 12px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 500; background: none; border: none; color: var(--text-muted); cursor: pointer; text-align: left; transition: all var(--transition); }
+    .filter-btn:hover { background: rgba(30,58,95,0.05); color: var(--text); }
+    .filter-btn.active { background: rgba(30,58,95,0.08); color: var(--navy); font-weight: 600; }
+    [data-theme="dark"] .filter-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    [data-theme="dark"] .filter-btn.active { background: rgba(255,255,255,0.1); color: var(--text); }
+    .filter-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dir-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: .75rem; }
+    .result-info { font-size: 0.9rem; color: var(--text-muted); }
+    .sort-select { padding: 8px 14px; border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.85rem; font-family: var(--font-body); cursor: pointer; }
+    .chips-bar { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .chips-bar::-webkit-scrollbar { display: none; }
+    .neighborhood-select { width: 100%; padding: 10px 12px; border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.88rem; font-family: var(--font-body); cursor: pointer; }
+    .neighborhood-select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(30,58,95,0.1); }
+    @media (max-width: 860px) {
+      .directory-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg>
+        </div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="directory.html" class="active">Resources</a>
+        <a href="programs.html">Programs & Events</a>
+        <a href="get-help.html">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <span class="icon-moon">🌙</span><span class="icon-sun">☀️</span>
+        </button>
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ & Contact</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <header class="page-hero">
+      <div class="container">
+        <div class="section-label" style="margin-bottom:.75rem;color:var(--amber-light)">Resource Directory</div>
+        <h1>Find the right support in Richmond.</h1>
+        <p>Search and filter 180+ verified organizations serving The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, Southside, and every Richmond neighborhood.</p>
+      </div>
+    </header>
+
+    <section class="section section--sm">
+      <div class="container">
+
+        <!-- Search bar -->
+        <div class="search-bar" style="margin-bottom:1.25rem;max-width:720px">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="search-input" placeholder="Search by name, service, keyword…" aria-label="Search resources" autocomplete="off">
+          <button class="search-clear" aria-label="Clear search">✕</button>
+        </div>
+
+        <!-- Category chip bar -->
+        <div class="chips-bar" id="category-chips" role="toolbar" aria-label="Filter by category" style="margin-bottom:1.5rem">
+          <!-- Injected by JS -->
+        </div>
+
+        <div class="directory-layout">
+
+          <!-- Sidebar filters -->
+          <aside class="filter-sidebar" aria-label="Filter resources">
+            <h3>Neighborhood</h3>
+            <select class="neighborhood-select" id="neighborhood-select" aria-label="Filter by Richmond neighborhood">
+              <option value="">All Richmond neighborhoods</option>
+              <!-- Injected by JS -->
+            </select>
+
+            <div class="filter-divider"></div>
+
+            <h3>Category</h3>
+            <div id="sidebar-cats">
+              <button class="filter-btn active" onclick="setCategory(null)" id="sidebar-all">
+                <span class="filter-dot" style="background:var(--text-muted)"></span>
+                All categories
+              </button>
+            </div>
+
+            <div class="filter-divider"></div>
+
+            <h3>Quick filters</h3>
+            <button class="filter-btn" onclick="filterUrgent()">⚡ Urgent / Immediate help</button>
+            <button class="filter-btn" onclick="filterFavorites()">♥ My saved resources</button>
+
+            <div class="filter-divider"></div>
+
+            <button class="btn btn--secondary btn--sm btn--full" onclick="clearFilters()">Clear all filters</button>
+          </aside>
+
+          <!-- Main directory -->
+          <div>
+            <div class="dir-toolbar">
+              <p class="result-info">Showing <strong id="result-count">0 resources</strong></p>
+              <select class="sort-select" id="sort-select" aria-label="Sort resources">
+                <option value="default">Sort: Default</option>
+                <option value="name">A–Z by name</option>
+                <option value="urgent">Urgent first</option>
+              </select>
+            </div>
+            <div class="grid grid-auto" id="directory-grid" role="list" aria-live="polite" aria-label="Resource results">
+              <div class="spinner" role="status" aria-label="Loading resources"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Saved resources section -->
+    <section class="section section--sm" style="background:var(--bg-warm);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="flex-between" style="margin-bottom:1.5rem">
+          <div>
+            <div class="section-label">Your saved resources</div>
+            <div class="divider"></div>
+            <h2 style="font-size:1.6rem">Bookmarked for later</h2>
+          </div>
+        </div>
+        <div id="saved-resources-container"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (abbreviated) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:1.5rem">
+        <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div><span class="nav-logo-text">Co<span>Fundly</span></span></a>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
+          <a href="index.html" style="font-size:.85rem;color:rgba(255,255,255,.5)">Home</a>
+          <a href="get-help.html" style="font-size:.85rem;color:rgba(255,255,255,.5)">Get Help Now</a>
+          <a href="suggest.html" style="font-size:.85rem;color:rgba(255,255,255,.5)">Suggest a Resource</a>
+          <a href="faq.html" style="font-size:.85rem;color:rgba(255,255,255,.5)">Contact</a>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.35)">© 2026 CoFundly · Richmond, Virginia</p>
+    </div>
+  </footer>
+
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div id="modal-content" class="modal"></div>
+  </div>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/directory.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Build sidebar category buttons
+      const sidebar = document.getElementById('sidebar-cats');
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.id = `sidebar-${cat.id}`;
+        btn.innerHTML = `<span class="filter-dot" style="background:${cat.color}"></span>${cat.label}`;
+        btn.onclick = () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          setCategory(cat.id);
+        };
+        sidebar.appendChild(btn);
+      });
+
+      document.getElementById('sidebar-all').onclick = () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('sidebar-all').classList.add('active');
+        setCategory(null);
+      };
+
+      // Populate neighborhood dropdown from data
+      const neighSelect = document.getElementById('neighborhood-select');
+      if (neighSelect && Array.isArray(window.NEIGHBORHOODS)) {
+        window.NEIGHBORHOODS.forEach(n => {
+          const opt = document.createElement('option');
+          opt.value = n;
+          opt.textContent = n;
+          neighSelect.appendChild(opt);
+        });
+        neighSelect.addEventListener('change', (e) => {
+          setNeighborhood(e.target.value || null);
+        });
+      }
+
+      // Sort handler
+      document.getElementById('sort-select')?.addEventListener('change', (e) => {
+        setSort(e.target.value);
+      });
+
+      // Render saved
+      if (typeof renderSavedResources === 'function') {
+        renderSavedResources(document.getElementById('saved-resources-container'));
+      }
+    });
+
+    function filterUrgent() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      activeCategory = null;
+      activeNeighborhood = null;
+      searchQuery = '';
+      const input = document.getElementById('search-input');
+      if (input) input.value = '';
+      const neigh = document.getElementById('neighborhood-select');
+      if (neigh) neigh.value = '';
+      const grid = document.getElementById('directory-grid');
+      const results = RESOURCES.filter(r => r.urgent);
+      document.getElementById('result-count').textContent = `${results.length} urgent resource${results.length !== 1 ? 's' : ''}`;
+      grid.innerHTML = results.length ? results.map(r => buildResourceCard(r)).join('') :
+        '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔍</div><h3>No urgent resources found</h3></div>';
+      if (typeof syncFavoriteButtons === 'function') syncFavoriteButtons();
+    }
+
+    function filterFavorites() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      const ids = typeof Favorites !== 'undefined' ? Favorites.get() : [];
+      const results = RESOURCES.filter(r => ids.includes(r.id));
+      const grid = document.getElementById('directory-grid');
+      document.getElementById('result-count').textContent = `${results.length} saved`;
+      grid.innerHTML = results.length ? results.map(r => buildResourceCard(r)).join('') :
+        '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔖</div><h3>No saved resources yet</h3><p>Click the ♡ heart on any resource card to save it here.</p></div>';
+      if (typeof syncFavoriteButtons === 'function') syncFavoriteButtons();
+    }
+
+    // Keep the sidebar category button active-state in sync with chip clicks.
+    const origSetCategory = window.setCategory;
+    window.setCategory = (catId) => {
+      origSetCategory(catId);
+      document.querySelectorAll('[id^="sidebar-"]').forEach(b => b.classList.remove('active'));
+      const target = catId ? document.getElementById(`sidebar-${catId}`) : document.getElementById('sidebar-all');
+      target?.classList.add('active');
+    };
+  </script>
+</body>
+</html>

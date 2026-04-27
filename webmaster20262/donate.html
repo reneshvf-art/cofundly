@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Support CoFundly — keep Richmond Virginia's free community resource hub verified, updated, and accessible to everyone who needs it.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Support CoFundly — Donate</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+  <style>
+    /* ---- Donate page layout ---- */
+    .donate-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .donate-layout { grid-template-columns: 1fr; }
+      .donate-visual { order: -1; }
+    }
+
+    /* ---- Spline / card placeholder ---- */
+    .donate-visual {
+      position: sticky;
+      top: calc(var(--nav-height) + 2rem);
+    }
+    .donate-spline-wrap {
+      position: relative;
+      width: 100%;
+      height: 390px;
+      background: transparent;
+      overflow: hidden;
+    }
+    .donate-spline-wrap spline-viewer {
+      position: absolute;
+      width: 1030px !important;
+      height: 930px !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.4);
+      transform-origin: center center;
+    }
+    /* Animated placeholder card */
+    .donate-card-mock {
+      position: relative;
+      z-index: 1;
+      width: 280px;
+      height: 170px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(30,58,95,0.9) 0%, rgba(17,34,55,0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+      padding: 22px 24px;
+      animation: cardFloat 5s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+    .donate-card-mock::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .donate-card-chip {
+      width: 34px;
+      height: 26px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #d4a017 0%, #f0c040 50%, #b8860b 100%);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .donate-card-chip::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(0,0,0,0.3);
+    }
+    .donate-card-chip::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0,0,0,0.3);
+    }
+    .donate-card-number {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 14px;
+    }
+    .donate-card-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .donate-card-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .donate-card-logo {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--amber);
+    }
+    .donate-spline-label {
+      position: absolute;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-12px) rotate(1.5deg); }
+    }
+
+    /* ---- Impact stats ---- */
+    .donate-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0 0;
+    }
+    .donate-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .donate-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .donate-stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    @media (max-width: 600px) { .donate-stats { grid-template-columns: 1fr; } }
+
+    /* ---- Why donate cards ---- */
+    .donate-why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 860px) { .donate-why-grid { grid-template-columns: 1fr; } }
+    .donate-why-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .donate-why-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--amber) 100%);
+    }
+    .donate-why-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .donate-why-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .donate-why-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ---- Amount pills ---- */
+    .amount-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .amount-pill {
+      padding: 0.55rem 1.2rem;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: var(--font-body);
+    }
+    .amount-pill:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+    .amount-pill.active {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #fff;
+    }
+
+    /* ---- Success card ---- */
+    .success-card {
+      background: rgba(16,185,129,.08);
+      border: 1.5px solid rgba(110,231,183,.3);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+
+    /* ---- Testimonial / trust strip ---- */
+    .donate-trust {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .donate-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .donate-trust-item span:first-child { color: var(--amber); font-size: 1rem; }
+  </style>
+  <script>(function(){var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var isReload=nav?nav.type==="reload":(performance.navigation&&performance.navigation.type===1);if(isReload){sessionStorage.removeItem("cf_a11y_dismissed");sessionStorage.removeItem("cf_alert_dismissed");}if(sessionStorage.getItem("cf_a11y_dismissed"))document.documentElement.classList.add("a11y-hidden");if(sessionStorage.getItem("cf_alert_dismissed"))document.documentElement.classList.add("alert-hidden");})();</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Accessibility bar -->
+  <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
+    <span>Accessibility:</span>
+    <button data-a11y="increase" aria-label="Increase font size">A+</button>
+    <button data-a11y="decrease" aria-label="Decrease font size">A−</button>
+    <button data-a11y="reset" aria-label="Reset font size">Reset</button>
+    <button data-a11y="close" aria-label="Close accessibility bar" style="margin-left:auto">✕</button>
+  </div>
+
+  <!-- Emergency alert bar -->
+  <div class="help-bar" role="alert">
+    <div class="help-bar-content">
+      <strong>🚨 Need help right now?</strong>
+      <span>Crisis line: <a href="tel:988">988</a> · Homeward intake (24/7): <a href="tel:8049720813">(804) 972-0813</a> · YWCA DV hotline: <a href="tel:8046126126">(804) 612-6126</a></span>
+    </div>
+    <button class="help-bar-close" aria-label="Dismiss alert">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+            <path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="directory.html">Resources</a>
+        <a href="programs.html">Programs & Events</a>
+        <a href="get-help.html">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a>
+        <a href="donate.html" class="active">Donate</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="saved-nav-btn" id="saved-nav-btn" aria-label="View saved resources" aria-expanded="false">
+          <span class="saved-nav-icon">♥</span>
+          <span class="saved-nav-label">Saved</span>
+          <span class="fav-count" style="display:none"></span>
+        </button>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="donate.html" class="nav-donate">Donate</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ & Contact</a>
+    <a href="get-help.html" class="btn btn--amber">Get Help Now →</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <!-- Hero -->
+    <header class="page-hero">
+      <div class="container">
+        <div class="section-label" style="color:var(--amber-light);margin-bottom:.75rem">Support CoFundly</div>
+        <h1>Keep Richmond's resource hub free.</h1>
+        <p>CoFundly is built and maintained by volunteers. Every dollar goes directly toward verifying listings, reaching more Richmond residents, and keeping this directory free for everyone who needs it.</p>
+        <div class="donate-stats">
+          <div class="donate-stat">
+            <div class="donate-stat-num">180+</div>
+            <div class="donate-stat-label">Verified resources listed</div>
+          </div>
+          <div class="donate-stat">
+            <div class="donate-stat-num">12</div>
+            <div class="donate-stat-label">Resource categories</div>
+          </div>
+          <div class="donate-stat">
+            <div class="donate-stat-num">100%</div>
+            <div class="donate-stat-label">Free for every resident</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Donation form -->
+    <section class="section">
+      <div class="container">
+        <div class="donate-layout">
+
+          <!-- Spline 3D placeholder -->
+          <div class="donate-visual">
+            <div class="donate-spline-wrap">
+              <spline-viewer url="https://prod.spline.design/Kfx1WkWEoG95op0c/scene.splinecode" style="width:100%;height:100%;display:block"></spline-viewer>
+            </div>
+            <div style="margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem">
+              <h3 style="font-size:1rem;margin-bottom:1rem;color:var(--text)">How donations are used</h3>
+              <div style="display:flex;flex-direction:column;gap:.75rem">
+                <div style="display:flex;align-items:center;gap:.75rem">
+                  <div style="flex:1;font-size:.85rem;color:var(--text-muted)">Directory maintenance</div>
+                  <div style="width:100px;height:6px;border-radius:3px;background:var(--border);overflow:hidden">
+                    <div style="width:45%;height:100%;background:var(--amber);border-radius:3px"></div>
+                  </div>
+                  <div style="font-size:.78rem;color:var(--amber);font-weight:600;width:2.5rem;text-align:right">45%</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                  <div style="flex:1;font-size:.85rem;color:var(--text-muted)">Community outreach</div>
+                  <div style="width:100px;height:6px;border-radius:3px;background:var(--border);overflow:hidden">
+                    <div style="width:30%;height:100%;background:var(--navy-light);border-radius:3px"></div>
+                  </div>
+                  <div style="font-size:.78rem;color:var(--text-muted);font-weight:600;width:2.5rem;text-align:right">30%</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                  <div style="flex:1;font-size:.85rem;color:var(--text-muted)">Platform &amp; hosting</div>
+                  <div style="width:100px;height:6px;border-radius:3px;background:var(--border);overflow:hidden">
+                    <div style="width:25%;height:100%;background:rgba(255,255,255,0.2);border-radius:3px"></div>
+                  </div>
+                  <div style="font-size:.78rem;color:var(--text-muted);font-weight:600;width:2.5rem;text-align:right">25%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Donation form column -->
+          <div>
+            <div id="form-wrapper">
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2.5rem">
+                <h2 style="font-size:1.5rem;margin-bottom:.4rem">Make a donation</h2>
+                <p style="color:var(--text-muted);margin-bottom:2rem;font-size:.92rem">Choose an amount below — every contribution helps keep CoFundly free and accurate for all of Richmond.</p>
+
+                <form id="donate-form" novalidate>
+
+                  <div class="form-group">
+                    <label class="form-label">Donation amount <span class="required">*</span></label>
+                    <div class="amount-pills">
+                      <button type="button" class="amount-pill" data-amount="5">$5</button>
+                      <button type="button" class="amount-pill active" data-amount="10">$10</button>
+                      <button type="button" class="amount-pill" data-amount="25">$25</button>
+                      <button type="button" class="amount-pill" data-amount="50">$50</button>
+                      <button type="button" class="amount-pill" data-amount="100">$100</button>
+                      <button type="button" class="amount-pill" data-custom="true">Custom</button>
+                    </div>
+                    <div id="custom-amount-wrap" style="display:none;margin-top:.5rem">
+                      <input class="form-input" type="number" id="custom-amount" min="1" placeholder="Enter amount in dollars" style="max-width:200px">
+                    </div>
+                    <div class="form-error" id="amount-error"></div>
+                  </div>
+
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label" for="donor-name">Full name <span class="required">*</span></label>
+                      <input class="form-input" type="text" id="donor-name" name="donor-name" placeholder="Your full name" autocomplete="name" data-required="true">
+                      <div class="form-error" id="donor-name-error"></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="donor-email">Email address <span class="required">*</span></label>
+                      <input class="form-input" type="email" id="donor-email" name="donor-email" placeholder="you@email.com" autocomplete="email" data-required="true" data-type="email">
+                      <div class="form-error" id="donor-email-error"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="donor-message">Leave a message <span style="color:var(--text-muted);font-weight:400">(optional)</span></label>
+                    <textarea class="form-textarea" id="donor-message" name="donor-message" placeholder="Share why you support CoFundly or what resource category matters most to you…" style="min-height:90px"></textarea>
+                  </div>
+
+                  <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;margin-bottom:1.5rem;font-size:.83rem;color:var(--text-muted)">
+                    This is a demonstration checkout — no real payment will be processed. In production, this would connect to Stripe or a similar payment processor.
+                  </div>
+
+                  <button type="submit" class="btn btn--primary btn--lg btn--full" id="donate-submit">
+                    Complete donation →
+                  </button>
+
+                  <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1rem;font-size:.78rem;color:var(--text-muted)">
+                    <span>🔒</span>
+                    <span>Secure checkout · No recurring charge without consent</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Success state -->
+            <div id="success-state" style="display:none">
+              <div class="success-card animate-fadeUp">
+                <div style="font-size:3.5rem;margin-bottom:1.25rem">💛</div>
+                <h2 style="margin-bottom:.75rem">Thank you for your support!</h2>
+                <p style="max-width:460px;margin:0 auto 1.5rem;color:var(--text-muted)">Your donation helps keep CoFundly free, verified, and accessible for every Richmond resident who needs it. A confirmation will be sent to your email.</p>
+                <div id="donation-summary" style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-lg);padding:1rem;margin-bottom:1.5rem;font-size:.9rem;color:var(--text)"></div>
+                <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+                  <a href="index.html" class="btn btn--primary">Back to home</a>
+                  <button onclick="resetDonateForm()" class="btn btn--secondary">Donate again</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Why donate -->
+    <section class="section section--sm">
+      <div class="container">
+        <div class="section-label" style="margin-bottom:.75rem">Why it matters</div>
+        <h2 class="text-display" style="font-size:clamp(1.75rem,3.5vw,2.5rem);margin-bottom:.5rem">Your support keeps this running.</h2>
+        <p style="color:var(--text-muted);max-width:600px">Richmond residents rely on CoFundly to find food, housing, mental health support, and more. Here's exactly what donations fund.</p>
+
+        <div class="donate-why-grid">
+          <div class="donate-why-card">
+            <div class="donate-why-icon">✅</div>
+            <h3>Keep listings verified</h3>
+            <p>Every organization in our directory is manually reviewed and updated quarterly. Donations fund the time it takes to call, confirm hours, and remove outdated info.</p>
+          </div>
+          <div class="donate-why-card">
+            <div class="donate-why-icon">📢</div>
+            <h3>Expand community reach</h3>
+            <p>We partner with libraries, schools, and clinics to make sure residents who don't have reliable internet access can still access CoFundly's listings in print and in person.</p>
+          </div>
+          <div class="donate-why-card">
+            <div class="donate-why-icon">🛠️</div>
+            <h3>Fund platform improvements</h3>
+            <p>Better search, more languages, accessibility features, and mobile performance — donations keep the site improving so it serves Richmond's full diversity of needs.</p>
+          </div>
+        </div>
+
+        <div class="donate-trust">
+          <div class="donate-trust-item"><span>🔒</span><span>Secure, encrypted checkout</span></div>
+          <div class="donate-trust-item"><span>🙋</span><span>100% volunteer-run team</span></div>
+          <div class="donate-trust-item"><span>📍</span><span>Richmond-based &amp; community-funded</span></div>
+          <div class="donate-trust-item"><span>♻️</span><span>No recurring charge without consent</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div>
+            <span class="nav-logo-text">Co<span>Fundly</span></span>
+          </a>
+          <p class="footer-tagline">Connecting every Richmond resident — across The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, and Southside — to the services, support, and opportunities they deserve.</p>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.4)">A civic-tech initiative for<br>Richmond, Virginia.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="directory.html">Resource directory</a>
+            <a href="programs.html">Programs &amp; events</a>
+            <a href="get-help.html">Get help now</a>
+            <a href="suggest.html">Suggest a resource</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <div class="footer-links">
+            <a href="about.html">Our mission</a>
+            <a href="about.html#team">Our team</a>
+            <a href="about.html#partners">Partners</a>
+            <a href="faq.html">FAQ</a>
+            <a href="faq.html#contact">Contact us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Emergency resources</h4>
+          <div class="footer-emergency">
+            <h5>🚨 Crisis lines</h5>
+            <div class="emergency-line"><strong>988 Suicide &amp; Crisis Lifeline</strong><span>Call or text 988 · 24/7</span></div>
+            <div class="emergency-line"><strong>Homeward Intake (housing crisis)</strong><span>(804) 972-0813 · 24/7</span></div>
+            <div class="emergency-line"><strong>YWCA Richmond DV Hotline</strong><span>(804) 612-6126 · 24/7</span></div>
+            <a href="get-help.html" class="btn btn--danger btn--sm" style="margin-top:0.75rem;width:100%;justify-content:center">View all emergency resources</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 CoFundly · Richmond, Virginia. Content is reviewed quarterly for accuracy.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Accessibility</a>
+          <a href="faq.html#contact">Contact</a>
+          <a href="website-references.html">Website References</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/donate.js"></script>
+
+  <!-- Saved Resources Drawer -->
+  <div class="saved-drawer" id="saved-drawer" role="dialog" aria-modal="true" aria-label="Saved resources">
+    <div class="saved-drawer-backdrop" id="saved-drawer-backdrop"></div>
+    <div class="saved-drawer-inner">
+      <div class="saved-drawer-header">
+        <h2>Saved Resources</h2>
+        <button class="saved-drawer-close" id="saved-drawer-close" aria-label="Close">✕</button>
+      </div>
+      <div class="saved-drawer-body" id="saved-drawer-body"></div>
+    </div>
+  </div>
+</body>
+</html>

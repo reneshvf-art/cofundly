@@ -1,0 +1,536 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Answers to common questions about CoFundly — how to find Richmond resources, use our directory, get involved, and contact our team.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>FAQ & Contact — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .faq-search-wrap { max-width: 520px; margin: 1.5rem 0 0; position: relative; }
+    .faq-search-wrap input {
+      width: 100%;
+      padding: .85rem 1.2rem .85rem 3rem;
+      border-radius: var(--radius-lg);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .faq-search-wrap .search-icon {
+      position: absolute; left: 1rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem; pointer-events: none;
+      color: var(--text-light);
+    }
+
+    .faq-tabs { border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: var(--nav-height); z-index: 40; backdrop-filter: blur(12px); background: rgba(248,250,252,0.9); }
+    [data-theme="dark"] .faq-tabs { background: rgba(11,18,32,0.9); }
+    .faq-tab-row { display: flex; gap: .5rem; overflow-x: auto; padding: 1rem 0; scrollbar-width: none; }
+    .faq-tab-row::-webkit-scrollbar { display: none; }
+    .faq-tab {
+      padding: .6rem 1.25rem;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-family: var(--font-body);
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition);
+    }
+    .faq-tab:hover { border-color: var(--navy); color: var(--navy); }
+    .faq-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    .faq-grid { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: start; }
+    .faq-sidebar { position: sticky; top: calc(var(--nav-height) + 5rem); }
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .sidebar-card h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--text); margin-bottom: .5rem; }
+    .sidebar-card p { font-size: .88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+    .sidebar-card .btn { width: 100%; justify-content: center; }
+
+    .emergency-card { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.28); }
+    .emergency-card h3 { color: #B91C1C; }
+    [data-theme="dark"] .emergency-card h3 { color: #FCA5A5; }
+    .emergency-line-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .88rem; padding: .45rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .emergency-line-row:last-child { border-bottom: none; }
+    .emergency-line-row a { color: #B91C1C; font-weight: 700; font-size: .95rem; }
+    [data-theme="dark"] .emergency-line-row a { color: #FCA5A5; }
+
+    .faq-section { display: none; }
+    .faq-section.active { display: block; animation: fadeUp 0.3s ease both; }
+    .faq-section-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--text); margin-bottom: 1.25rem; }
+    .faq-answer a { color: var(--navy); text-decoration: underline; text-decoration-color: rgba(30,58,95,0.4); text-underline-offset: 2px; }
+    [data-theme="dark"] .faq-answer a { color: var(--amber-light); }
+    .faq-answer ul { padding-left: 1.25rem; margin-top: .6rem; list-style: disc; color: var(--text-muted); }
+    .faq-answer li { margin-bottom: .3rem; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-detail-list { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.5rem; }
+    .contact-detail {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .contact-detail .icon { font-size: 1.25rem; margin-top: .15rem; }
+    .contact-detail strong { display: block; font-size: .9rem; color: var(--text); margin-bottom: .15rem; }
+    .contact-detail span { font-size: .87rem; color: var(--text-muted); }
+    .contact-detail a { color: var(--navy); font-weight: 500; }
+
+    .contact-form-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+    }
+    .contact-form-wrap h3 { font-family: var(--font-display); font-size: 1.35rem; color: var(--text); margin-bottom: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    @media (max-width: 900px) {
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-sidebar { position: static; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  </style>
+  <script>(function(){var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var isReload=nav?nav.type==="reload":(performance.navigation&&performance.navigation.type===1);if(isReload){sessionStorage.removeItem("cf_a11y_dismissed");sessionStorage.removeItem("cf_alert_dismissed");}if(sessionStorage.getItem("cf_a11y_dismissed"))document.documentElement.classList.add("a11y-hidden");if(sessionStorage.getItem("cf_alert_dismissed"))document.documentElement.classList.add("alert-hidden");})();</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Accessibility bar -->
+  <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
+    <span>Accessibility:</span>
+    <button data-a11y="increase" aria-label="Increase font size">A+</button>
+    <button data-a11y="decrease" aria-label="Decrease font size">A−</button>
+    <button data-a11y="reset" aria-label="Reset font size">Reset</button>
+    <button data-a11y="close" aria-label="Close accessibility bar" style="margin-left:auto">✕</button>
+  </div>
+
+  <!-- Emergency alert bar -->
+  <div class="help-bar" role="alert">
+    <div class="help-bar-content">
+      <strong>🚨 Need help right now?</strong>
+      <span>Crisis line: <a href="tel:988">988</a> · Homeward intake (24/7): <a href="tel:8049720813">(804) 972-0813</a> · YWCA DV hotline: <a href="tel:8046126126">(804) 612-6126</a></span>
+    </div>
+    <button class="help-bar-close" aria-label="Dismiss alert">✕</button>
+  </div>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg>
+        </div>
+        <span class="nav-logo-text">Co<span>Fundly</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="directory.html">Resources</a>
+        <a href="programs.html">Programs & Events</a>
+        <a href="get-help.html">Get Help Now</a>
+        <a href="suggest.html">Suggest a Resource</a>
+        <a href="donate.html" class="nav-donate">Donate</a>
+        <a href="about.html">About</a>
+        <a href="faq.html" class="active">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="saved-nav-btn" id="saved-nav-btn" aria-label="View saved resources" aria-expanded="false">
+          <span class="saved-nav-icon">♥</span>
+          <span class="saved-nav-label">Saved</span>
+          <span class="fav-count" style="display:none"></span>
+        </button>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Resource Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="get-help.html">Get Help Now</a>
+    <a href="suggest.html">Suggest a Resource</a>
+    <a href="donate.html" class="nav-donate">Donate</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ & Contact</a>
+  </div>
+
+  <main id="main" class="page-wrapper">
+
+    <!-- Hero -->
+    <header class="page-hero">
+      <div class="container">
+        <div class="section-label" style="color:var(--amber-light);margin-bottom:.75rem">FAQ & contact</div>
+        <h1>Frequently asked questions.</h1>
+        <p>How CoFundly works, how to use our Richmond directory, and how to reach our team for help, partnerships, or feedback.</p>
+        <div class="faq-search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="faq-search" placeholder="Search for an answer…" aria-label="Search FAQ" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Tab bar -->
+    <div class="faq-tabs">
+      <div class="container">
+        <div class="faq-tab-row" role="tablist">
+          <button class="faq-tab active" role="tab" data-section="general" aria-selected="true">General</button>
+          <button class="faq-tab" role="tab" data-section="directory" aria-selected="false">Using the directory</button>
+          <button class="faq-tab" role="tab" data-section="organizations" aria-selected="false">For organizations</button>
+          <button class="faq-tab" role="tab" data-section="privacy" aria-selected="false">Privacy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ content -->
+    <section class="section section--sm">
+      <div class="container">
+        <div class="faq-grid">
+
+          <div id="faq-accordion">
+
+            <!-- General -->
+            <div class="faq-section active" data-section="general">
+              <h2 class="faq-section-title">General questions</h2>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What is CoFundly?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">CoFundly is a free, community-operated resource hub for residents of Richmond, Virginia. We maintain a verified directory of local services — food assistance, housing support, healthcare, mental health, jobs, legal aid, and more — to help every Richmonder find what they need quickly and without barriers.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Is CoFundly free to use?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Yes — completely. CoFundly is free for all Richmond residents. We do not charge for access, do not require account creation, and do not accept paid placements in our directory. Every resource is included on merit.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Who maintains this site?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">CoFundly is operated by a small team of civic-tech professionals based in Richmond, working alongside community volunteers and partner organizations. We are not a government agency, but we work closely with the City of Richmond, RPS, VCU Health, and local nonprofits to keep information accurate. <a href="about.html">Learn more about our team →</a></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How often is information updated?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">We review every listing at least quarterly and update contact details, hours, and availability as changes are reported. Organizations can notify us of changes at any time via <a href="#contact">our contact form</a>. We flag recently verified listings so you can gauge how current the information is.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What if I need help right now?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">
+                  If you're in immediate crisis, go directly to our <a href="get-help.html">Get Help Now</a> page. You can also call:
+                  <ul>
+                    <li><strong>988</strong> — Suicide & Crisis Lifeline, 24/7</li>
+                    <li><strong>911</strong> — Life-threatening emergencies</li>
+                    <li><strong>(804) 972-0813</strong> — Homeward Richmond, housing crisis intake 24/7</li>
+                    <li><strong>(804) 612-6126</strong> — YWCA Richmond, domestic-violence hotline 24/7</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Directory -->
+            <div class="faq-section" data-section="directory">
+              <h2 class="faq-section-title">Using the directory</h2>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How do I search for a specific type of help?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Visit the <a href="directory.html">Resource Directory</a> and use the search bar to enter keywords — like "food pantry," "shelter," "tenant rights," or "therapy." You can also filter by category using the chips at the top, or narrow results by Richmond neighborhood in the sidebar.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Can I save resources to come back to later?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Yes. Click the heart icon (♡) on any resource card to save it. Your saved resources are stored in your browser and persist between visits — no account needed. View them at the bottom of the directory page or via the sidebar's "My saved resources" filter.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What does "Urgent" mean on a resource?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Resources marked "Urgent" offer time-sensitive or same-day services — such as emergency food, crisis shelter, or immediate mental-health support. Use the Urgent filter in the sidebar to see only these resources.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">The info for an organization seems outdated. What do I do?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Please <a href="#contact">contact our team</a> and tell us which listing needs updating. Include the organization name and what appears incorrect. We aim to investigate and update listings within 48 business hours of a correction report.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Why can't I find a specific Richmond organization?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">It may not have been submitted yet, or it may be listed under a different name. Try searching by keyword. If you believe a legitimate Richmond organization is missing, please <a href="suggest.html">suggest a resource</a> — we review every submission within 5 business days.</div>
+              </div>
+            </div>
+
+            <!-- Organizations -->
+            <div class="faq-section" data-section="organizations">
+              <h2 class="faq-section-title">For organizations</h2>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How do I get my organization listed?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Use the <a href="suggest.html">Suggest a Resource</a> form. Our team reviews every submission for accuracy, community relevance, and service legitimacy before approval. Most submissions are reviewed within 3–5 business days.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Is there a cost for organizations to be listed?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">No. Listing your organization is free. We don't charge for placement, and we don't accept payment to feature organizations more prominently. Our goal is to reflect the genuine resource landscape of Richmond.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What types of organizations are eligible?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Nonprofits, government agencies, community health organizations, legal aid, educational programs, and community-run services that serve Richmond residents accessibly. We don't list commercial businesses, paid-membership services, or organizations that can't demonstrate active community service.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How do I update our listing?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">Email <a href="mailto:updates@cofundly.org">updates@cofundly.org</a> with changes. Include your organization name and the corrections. We typically process updates within 48 business hours.</div>
+              </div>
+            </div>
+
+            <!-- Privacy -->
+            <div class="faq-section" data-section="privacy">
+              <h2 class="faq-section-title">Privacy & data</h2>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Do you track users or collect personal data?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">We use only basic, privacy-respecting analytics to understand which resources are most-viewed so we can improve coverage. No accounts are required, no personal information is collected, and saved resources live only in your browser — never on our servers.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Are my saved resources stored online?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">No. Saved resources are stored in your browser's local storage. They are not sent to our servers, are never visible to CoFundly staff, and cannot be used to identify you. Clearing your browser data will remove saved resources.</div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What information do you share with listed organizations?<span class="faq-icon">+</span></button>
+                <div class="faq-answer">None about individual visitors. We share aggregate, anonymized metrics (e.g., "your listing was viewed 120 times last month") when organizations request them. We never share search terms or contact attempts with the organizations themselves.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="faq-sidebar">
+            <div class="sidebar-card">
+              <h3>Didn't find your answer?</h3>
+              <p>Our Richmond resource team responds to most questions within one business day.</p>
+              <a href="#contact" class="btn btn--primary">Contact us ↓</a>
+            </div>
+            <div class="sidebar-card emergency-card">
+              <h3>🚨 Need help now?</h3>
+              <div>
+                <div class="emergency-line-row"><span>988 Crisis Lifeline</span><a href="tel:988">988</a></div>
+                <div class="emergency-line-row"><span>Homeward (housing)</span><a href="tel:8049720813">(804) 972-0813</a></div>
+                <div class="emergency-line-row"><span>YWCA DV Hotline</span><a href="tel:8046126126">(804) 612-6126</a></div>
+                <div class="emergency-line-row"><span>Emergency</span><a href="tel:911">911</a></div>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" style="background:var(--bg-warm);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="contact-grid">
+          <div>
+            <div class="section-label">Contact CoFundly</div>
+            <div class="divider"></div>
+            <h2 style="margin-bottom:1rem">Reach our Richmond team.</h2>
+            <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem">Whether you're a resident with a question, an organization with an update, a journalist looking for data, or a partner exploring collaboration — we'd love to hear from you.</p>
+
+            <div class="contact-detail-list">
+              <div class="contact-detail">
+                <span class="icon">✉️</span>
+                <div><strong>General inquiries</strong><span><a href="mailto:hello@cofundly.org">hello@cofundly.org</a></span></div>
+              </div>
+              <div class="contact-detail">
+                <span class="icon">🏢</span>
+                <div><strong>Partnerships</strong><span><a href="mailto:partnerships@cofundly.org">partnerships@cofundly.org</a></span></div>
+              </div>
+              <div class="contact-detail">
+                <span class="icon">📝</span>
+                <div><strong>Listing updates</strong><span><a href="mailto:updates@cofundly.org">updates@cofundly.org</a></span></div>
+              </div>
+              <div class="contact-detail">
+                <span class="icon">📍</span>
+                <div><strong>Based in</strong><span>Richmond, Virginia · Jackson Ward</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-wrap">
+            <h3>Send us a message</h3>
+            <form id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="c-name">Your name</label>
+                  <input class="form-input" type="text" id="c-name" name="name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="c-email">Email</label>
+                  <input class="form-input" type="email" id="c-email" name="email" required autocomplete="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="c-topic">Topic</label>
+                <select class="form-select" id="c-topic" name="topic" required>
+                  <option value="">Choose a topic…</option>
+                  <option value="general">General question</option>
+                  <option value="listing-update">Listing update or correction</option>
+                  <option value="partnership">Partnership inquiry</option>
+                  <option value="feedback">Feedback on CoFundly</option>
+                  <option value="press">Press or data request</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="c-message">Message</label>
+                <textarea class="form-textarea" id="c-message" name="message" required placeholder="Share what's on your mind…"></textarea>
+              </div>
+              <button type="submit" class="btn btn--primary btn--lg btn--full">Send message →</button>
+            </form>
+            <div id="contact-success" style="display:none;text-align:center;padding:2rem 0">
+              <div style="font-size:3rem;margin-bottom:1rem">✅</div>
+              <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:.5rem">Thanks — we got it.</h3>
+              <p style="color:var(--text-muted)">We reply to most messages within one business day.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div>
+            <span class="nav-logo-text">Co<span>Fundly</span></span>
+          </a>
+          <p class="footer-tagline">Connecting every Richmond resident — across The Fan, Carytown, Church Hill, Shockoe Bottom, Scott's Addition, and Southside — to the services, support, and opportunities they deserve.</p>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.4)">A civic-tech initiative for<br>Richmond, Virginia.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="directory.html">Resource directory</a>
+            <a href="programs.html">Programs &amp; events</a>
+            <a href="get-help.html">Get help now</a>
+            <a href="suggest.html">Suggest a resource</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <div class="footer-links">
+            <a href="about.html">Our mission</a>
+            <a href="about.html#team">Our team</a>
+            <a href="about.html#partners">Partners</a>
+            <a href="faq.html">FAQ</a>
+            <a href="faq.html#contact">Contact us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Emergency resources</h4>
+          <div class="footer-emergency">
+            <h5>🚨 Crisis lines</h5>
+            <div class="emergency-line"><strong>988 Suicide &amp; Crisis Lifeline</strong><span>Call or text 988 · 24/7</span></div>
+            <div class="emergency-line"><strong>Homeward Intake (housing crisis)</strong><span>(804) 972-0813 · 24/7</span></div>
+            <div class="emergency-line"><strong>YWCA Richmond DV Hotline</strong><span>(804) 612-6126 · 24/7</span></div>
+            <a href="get-help.html" class="btn btn--danger btn--sm" style="margin-top:0.75rem;width:100%;justify-content:center">View all emergency resources</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 CoFundly · Richmond, Virginia. Content is reviewed quarterly for accuracy.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Accessibility</a>
+          <a href="faq.html#contact">Contact</a>
+          <a href="website-references.html">Website References</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
+  <script>
+    // Tab switching
+    document.querySelectorAll('.faq-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const sect = tab.dataset.section;
+        document.querySelectorAll('.faq-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.faq-section').forEach(s => s.classList.remove('active'));
+        document.querySelector(`.faq-section[data-section="${sect}"]`)?.classList.add('active');
+      });
+    });
+
+    // Simple FAQ search — expands matching sections with matching items
+    const searchInput = document.getElementById('faq-search');
+    searchInput?.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) {
+        document.querySelectorAll('.faq-item').forEach(i => i.style.display = '');
+        return;
+      }
+      // Show all sections while searching
+      document.querySelectorAll('.faq-section').forEach(s => s.classList.add('active'));
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const match = item.textContent.toLowerCase().includes(q);
+        item.style.display = match ? '' : 'none';
+      });
+    });
+
+    // Contact form — demo submit
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const success = document.getElementById('contact-success');
+      form.style.display = 'none';
+      success.style.display = 'block';
+      window.showToast?.('Message sent — we\'ll reply within 1 business day', '✅', 3500);
+    });
+  </script>
+
+  <!-- Saved Resources Drawer -->
+  <div class="saved-drawer" id="saved-drawer" role="dialog" aria-modal="true" aria-label="Saved resources">
+    <div class="saved-drawer-backdrop" id="saved-drawer-backdrop"></div>
+    <div class="saved-drawer-inner">
+      <div class="saved-drawer-header">
+        <h2>Saved Resources</h2>
+        <button class="saved-drawer-close" id="saved-drawer-close" aria-label="Close">✕</button>
+      </div>
+      <div class="saved-drawer-body" id="saved-drawer-body"></div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+

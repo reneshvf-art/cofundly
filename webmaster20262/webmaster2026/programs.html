@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find upcoming community programs, workshops, events, and opportunities across Richmond, Virginia — job fairs, health screenings, financial literacy, tenant-rights clinics, and more.">
+  <meta name="theme-color" content="#1E3A5F">
+  <title>Programs & Events — CoFundly Richmond</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .events-filter-bar { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2rem; }
+    .events-grid { display:grid; grid-template-columns:1fr; gap:1.25rem; }
+    .event-card-full { background:var(--surface); border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden; transition:box-shadow var(--transition); }
+    .event-card-full:hover { box-shadow:var(--shadow-md); }
+    .event-card-full-inner { display:flex; gap:0; }
+    .event-date-col { width:90px; flex-shrink:0; background:var(--navy); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.25rem .75rem; text-align:center; }
+    .event-date-col .month { font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.7; }
+    .event-date-col .day { font-family:var(--font-display); font-size:2.5rem; line-height:1; }
+    .event-date-col .year { font-size:.7rem; opacity:.5; }
+    .event-content { flex:1; padding:1.5rem; }
+    .event-content h3 { font-size:1.2rem; margin-bottom:.4rem; }
+    .event-actions { display:flex; gap:.75rem; align-items:center; margin-top:1rem; flex-wrap:wrap; }
+    .volunteer-section { background:var(--navy); border-radius:var(--radius-xl); padding:3rem; color:#fff; display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center; }
+    @media(max-width:700px){ .volunteer-section{grid-template-columns:1fr} .event-card-full-inner{flex-direction:column} .event-date-col{width:100%;flex-direction:row;gap:8px;padding:.75rem 1.5rem;justify-content:flex-start} }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="CoFundly Home"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div><span class="nav-logo-text">Co<span>Fundly</span></span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a><a href="directory.html">Resources</a>
+        <a href="programs.html" class="active">Programs & Events</a>
+        <a href="get-help.html">Get Help Now</a><a href="suggest.html">Suggest a Resource</a>
+        <a href="about.html">About</a><a href="faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="icon-moon">🌙</span><span class="icon-sun">☀️</span></button>
+        <a href="get-help.html" class="btn btn--amber btn--sm hide-mobile">Get Help Now</a>
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu"><a href="index.html">Home</a><a href="directory.html">Resource Directory</a><a href="programs.html">Programs & Events</a><a href="get-help.html">Get Help Now</a><a href="suggest.html">Suggest a Resource</a><a href="about.html">About</a><a href="faq.html">FAQ & Contact</a></div>
+
+  <main id="main" class="page-wrapper">
+    <header class="page-hero">
+      <div class="container">
+        <div class="section-label" style="color:var(--amber-light);margin-bottom:.75rem">Programs & events</div>
+        <h1>What's happening across Richmond.</h1>
+        <p>Free workshops, health screenings, job fairs, tenant-rights clinics, and community programs happening in RVA right now.</p>
+      </div>
+    </header>
+
+    <section class="section section--sm">
+      <div class="container">
+
+        <!-- Filter pills -->
+        <div class="events-filter-bar" role="toolbar" aria-label="Filter events">
+          <button class="chip active" id="filter-all" onclick="filterEvents('all')">All events</button>
+          <button class="chip" onclick="filterEvents('free')">🆓 Free only</button>
+          <button class="chip" onclick="filterEvents('food')">🥗 Food</button>
+          <button class="chip" onclick="filterEvents('health')">🩺 Health</button>
+          <button class="chip" onclick="filterEvents('employment')">💼 Jobs</button>
+          <button class="chip" onclick="filterEvents('education')">📚 Education</button>
+          <button class="chip" onclick="filterEvents('legal')">⚖️ Legal</button>
+          <button class="chip" onclick="filterEvents('mental-health')">💬 Mental health</button>
+          <button class="chip" onclick="filterEvents('seniors')">🤝 Seniors</button>
+        </div>
+
+        <div class="events-grid" id="events-grid" aria-live="polite">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div id="events-empty" class="empty-state" style="display:none">
+          <div class="empty-state-icon">📅</div>
+          <h3>No events in this category</h3>
+          <p>Try a different filter, or check back soon — new Richmond events are added regularly.</p>
+          <button class="btn btn--secondary" onclick="filterEvents('all')" style="margin-top:1rem">Show all events</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Volunteer section -->
+    <section class="section section--sm">
+      <div class="container">
+        <div class="volunteer-section">
+          <div>
+            <div class="section-label" style="color:var(--amber-light);margin-bottom:.75rem">Get involved</div>
+            <h2 style="color:#fff;margin-bottom:.75rem">Volunteer with a Richmond organization.</h2>
+            <p style="color:rgba(255,255,255,.72);margin-bottom:1.5rem">
+              Richmond's nonprofits rely on dedicated volunteers — from Feed More warehouse shifts to Peter Paul after-school tutors to YWCA court advocates. Whether you have an hour a week or a day a month, there's meaningful work waiting.
+            </p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+              <a href="directory.html" class="btn btn--amber">Find organizations →</a>
+              <a href="suggest.html" class="btn btn--ghost">Submit an opportunity</a>
+            </div>
+          </div>
+          <div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.25rem">
+                <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--amber-light)">3,400+</div>
+                <div style="font-size:.83rem;color:rgba(255,255,255,.6);margin-top:4px">Active volunteers across RVA</div>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.25rem">
+                <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--amber-light)">90+</div>
+                <div style="font-size:.83rem;color:rgba(255,255,255,.6);margin-top:4px">Organizations seeking volunteers</div>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.25rem">
+                <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--amber-light)">12,000+</div>
+                <div style="font-size:.83rem;color:rgba(255,255,255,.6);margin-top:4px">Volunteer hours logged last month</div>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.25rem">
+                <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--amber-light)">100%</div>
+                <div style="font-size:.83rem;color:rgba(255,255,255,.6);margin-top:4px">Free to sign up and participate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Downloadable guides -->
+    <section class="section section--sm" style="background:var(--bg-warm);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Resources</div>
+          <div class="divider"></div>
+          <h2>Downloadable guides</h2>
+          <p>Print-ready reference materials for common services and situations.</p>
+        </div>
+        <div class="grid grid-3" style="gap:1rem">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;align-items:center;gap:1rem">
+            <div style="font-size:2rem">📄</div>
+            <div>
+              <div style="font-weight:600;font-size:.92rem;color:var(--text);margin-bottom:3px">Richmond emergency resources quick reference</div>
+              <div style="font-size:.78rem;color:var(--text-muted)">One-page PDF · Updated April 2026</div>
+              <a href="#" class="btn btn--secondary btn--sm" style="margin-top:.6rem">Download PDF</a>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;align-items:center;gap:1rem">
+            <div style="font-size:2rem">📄</div>
+            <div>
+              <div style="font-weight:600;font-size:.92rem;color:var(--text);margin-bottom:3px">New to RVA — resident resource guide</div>
+              <div style="font-size:.78rem;color:var(--text-muted)">Bilingual (EN/ES) · Updated March 2026</div>
+              <a href="#" class="btn btn--secondary btn--sm" style="margin-top:.6rem">Download PDF</a>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;align-items:center;gap:1rem">
+            <div style="font-size:2rem">📄</div>
+            <div>
+              <div style="font-weight:600;font-size:.92rem;color:var(--text);margin-bottom:3px">Richmond youth & family services directory</div>
+              <div style="font-size:.78rem;color:var(--text-muted)">16 pages · Updated Jan 2026</div>
+              <a href="#" class="btn btn--secondary btn--sm" style="margin-top:.6rem">Download PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container--wide">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:1.5rem">
+        <a href="index.html" class="nav-logo" aria-label="CoFundly Home"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M4 12 Q8 5 12 12 Q16 19 20 12" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#F97316" stroke="none"/></svg></div><span class="nav-logo-text">Co<span>Fundly</span></span></a>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.35)">© 2026 CoFundly · Richmond, Virginia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/resources.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let eventsFilter = 'all';
+
+    function renderEvents() {
+      const grid = document.getElementById('events-grid');
+      const empty = document.getElementById('events-empty');
+      let filtered = EVENTS;
+
+      if (eventsFilter === 'free') filtered = EVENTS.filter(e => e.free);
+      else if (eventsFilter !== 'all') filtered = EVENTS.filter(e => e.category === eventsFilter);
+
+      if (!filtered.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      grid.innerHTML = filtered.map(ev => {
+        const d = new Date(ev.date);
+        const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+        const day = d.getDate();
+        const year = d.getFullYear();
+        const cat = (typeof CATEGORIES !== 'undefined')
+          ? CATEGORIES.find(c => c.id === ev.category) : null;
+        const catColor = cat ? cat.color : '#64748B';
+        const catLabel = cat ? cat.label : '';
+        return `
+          <article class="event-card-full animate-fadeUp">
+            <div class="event-card-full-inner">
+              <div class="event-date-col" style="background:${catColor}">
+                <span class="month">${month}</span>
+                <span class="day">${day}</span>
+                <span class="year">${year}</span>
+              </div>
+              <div class="event-content">
+                <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem">
+                  ${catLabel ? `<span class="badge" style="background:${catColor}18;color:${catColor}">${catLabel}</span>` : ''}
+                  ${ev.free ? '<span class="badge badge--free">Free</span>' : '<span class="badge" style="background:#FEF3C7;color:#92400E">Paid</span>'}
+                  ${ev.registration ? '<span class="badge" style="background:#EDE9FE;color:#5B21B6">Registration required</span>' : ''}
+                  ${ev.neighborhood ? `<span class="badge" style="background:rgba(30,58,95,.08);color:var(--navy)">📍 ${ev.neighborhood}</span>` : ''}
+                </div>
+                <h3>${ev.title}</h3>
+                <div class="event-meta">
+                  <span>🕐 ${ev.time}</span>
+                  <span>📍 ${ev.location}</span>
+                </div>
+                <p>${ev.description}</p>
+                <div class="event-actions">
+                  ${ev.registration && ev.registrationUrl ? `<a href="${ev.registrationUrl}" class="btn btn--primary btn--sm">Register now →</a>` : `<span class="btn btn--secondary btn--sm" style="cursor:default">Walk-in welcome</span>`}
+                  <span style="font-size:.8rem;color:var(--text-muted)">Add to calendar: <a href="#" style="color:var(--navy)">Google</a> · <a href="#" style="color:var(--navy)">iCal</a></span>
+                </div>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    function filterEvents(type) {
+      eventsFilter = type;
+      document.querySelectorAll('.events-filter-bar .chip').forEach(c => c.classList.remove('active'));
+      if (type === 'all') document.getElementById('filter-all').classList.add('active');
+      renderEvents();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderEvents);
+  </script>
+</body>
+</html>
